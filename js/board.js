@@ -1,23 +1,17 @@
 /**
- * Created by AnaPinto on 2/5/2016.
+ *@class Board - contains the matrix
+ *
+ *
+ *  Created by AnaPinto on 2/5/2016.
  */
-/*
-*
-*
-*
-*
-*
-* */ /* REVIEW THIS
-*
-**/
-var Board=function(dimension)
+var Board=function()
 {
-    this.dimension = dimension;
+    this.dimension = 0;
     this.cells=[];
 
 };
 Board.prototype.returnCells = function(){
-    return this;
+    return this.cells;
 };
 
 Board.prototype.returnOneCell = function(row, column){
@@ -36,7 +30,9 @@ Board.prototype.createBoard= function(){
     return arr;
 };
 
-
+/*
+ * params{int} number Define the matrix dimension nxn
+ */
 Board.prototype.setDimension = function(number){
     //Inicilize matrix
 
@@ -65,18 +61,18 @@ Board.prototype.setDimension = function(number){
 };
 
 /*
- * params{int dimensionNumber} Define the matrix dimension nxn
+ * fillCharacter => fill the matrix randomly
  */
 Board.prototype.fillCharacter = function(){
 
     var text='',charac;
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var SOURCE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var x,y;
     var numberOfPairs=(this.dimension*this.dimension)/2;
 
 
     for( var i=0; i < numberOfPairs; i++ )
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
+        text += SOURCE.charAt(Math.floor(Math.random() * SOURCE.length));
 
     for (var j=0;j<text.length;j++)
     {//For each letter, twice assign in a empty cell
@@ -90,7 +86,7 @@ Board.prototype.fillCharacter = function(){
             y = Math.floor(Math.random() * this.dimension);
         }
 
-        this.cells[x][y].setCharacter(text.charAt());
+        this.cells[x][y].setCharacter(charac);
 
 
 
