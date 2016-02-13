@@ -26,6 +26,8 @@ var Player=function(id,name,age)
     ;*/
 };
 
+var p = new Player();
+
 /*Player.prototype.getScore = function(){
     return this.playerScore.getScore();
 };

@@ -41,7 +41,7 @@ Board.prototype.setDimension = function(number){
         this.cells[i] = [];
         for (var j = 0; j < number ; j++ )
         {
-            this.cells[i][j] = new Figure(i,j);
+            this.cells[i][j] = new Figure();
 
         }
     }
@@ -89,6 +89,15 @@ Board.prototype.fillCharacter = function(){
         this.cells[x][y].setCharacter(charac);
 
 
+        x=Math.floor(Math.random() * this.dimension);
+        y=Math.floor(Math.random() * this.dimension);
+        while (this.cells[x][y].isEmptyCell()===false)
+        {
+            x = Math.floor(Math.random() * this.dimension);
+            y = Math.floor(Math.random() * this.dimension);
+        }
+
+        this.cells[x][y].setCharacter(charac);
 
 
     }
