@@ -15,7 +15,7 @@ var Game=function()
     * Save that dimension in a var
     * MyBoard will call .SetDimension(var)
     * MyBoard.fillcharacters
-    * Then show Board in the view
+    * Then showBoard in the view--Al
     * And display the board with the JS task
     *
     * Ask user what row and columm he wants to see
@@ -32,6 +32,30 @@ var Game=function()
     * */
 
     var myBoard = new Board();
+
+    var dimension = prompt("Enter the dimension of the board", "i.e. 6");
+    if (dimension != null) {
+       myBoard.setDimension(dimension);
+        myBoard.fillCharacter();
+        myBoard.showBoard(); // AL
+
+        var col = prompt("What column do you choose?","i.e. A");
+        var row = prompt("What row do you choose?","i.e. 1");
+
+        if(col != null && row != null){
+
+            myBoard.returnOneCell(row, col);
+            // Then ask again for a row and column and show it 
+        }
+        else{
+            console.log("You need to choose a row and a column to continue playing");
+        }
+
+
+    }
+    else{
+       console.log("You need to dimension the board to start playing!");
+    }
 
 
 }
