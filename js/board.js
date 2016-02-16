@@ -1,4 +1,4 @@
-/**
+/*
  * Created by AnaPinto on 2/5/2016.
  */
 /*
@@ -7,9 +7,9 @@
 *
 *
 *
-* */ /* REVIEW THIS
+* / REVIEW THIS
 *
-*
+**/
 var Board=function(dimenssion)
 {
     this.dimenssion = dimenssion;
@@ -35,5 +35,3 @@ Board.prototype.createBoard= function(){
 
     return arr;
 };
-
-*/
