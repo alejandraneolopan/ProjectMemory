@@ -7,7 +7,7 @@
  */
 var Game=function()
 {
-    this.player=new Player(1,'Canito',23 );
+    var player=new Player(1,'Canito',23 );
 
     /* My tasks for tomorrow (Ana's tasks):
     * Create a object called Board
@@ -39,13 +39,34 @@ var Game=function()
         myBoard.fillCharacter();
         myBoard.showBoard(); // AL
 
-        var col = prompt("What column do you choose?","i.e. A");
-        var row = prompt("What row do you choose?","i.e. 1");
+        var col1 = prompt("What column do you choose?","i.e. A");
+        var row1 = prompt("What row do you choose?","i.e. 1");
 
-        if(col != null && row != null){
+        if(col1 != null && row1 != null){
 
-            myBoard.returnOneCell(row, col);
-            // Then ask again for a row and column and show it 
+            myBoard.returnOneCell(row1, col1);
+            // Then ask again for a row and column and show it
+
+            var col2 = prompt("What column do you choose?","i.e. A");
+            var row2 = prompt("What row do you choose?","i.e. 1");
+            if(col2 != null && row2 != null){
+                myBoard.returnOneCell(row2, col2);
+            }
+
+            if(col1 === col2 && row1 === row2){
+                console.log("Congrats! you win 50 points");
+
+                player.setCurrentScore(50);
+                player.setTotalScore(50);
+                // if they are equal add points and set the hidden property to false
+
+            }
+            else{
+                console.log("Sorry! you have to try again");
+                // if they aren't equal hide the cells
+            }
+
+
         }
         else{
             console.log("You need to choose a row and a column to continue playing");

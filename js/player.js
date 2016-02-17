@@ -81,3 +81,4 @@ Player.prototype.getNickName = function(){
 Player.prototype.setNickName = function(nick){
     return this.nickName=nick;
 };
+
