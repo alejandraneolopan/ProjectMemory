@@ -40,7 +40,7 @@ var Game=function()
     if (dimension != null) {
         this.myBoard.setDimension(dimension);
         this.myBoard.fillCharacter();
-       // this.showBoardConsole(); // AL
+        this.myBoard.showBoardConsole(); // AL
         var numberOfPairs = (dimension*dimension)/2;
         while ( fails < dimension && wins < numberOfPairs ) {
             var col1 = prompt("What column do you choose?", "i.e. 2");
@@ -50,14 +50,14 @@ var Game=function()
 
                 var figure1 = this.myBoard.returnOneCell(row1, col1);
                 // Then ask again for a row and column and show it
-
+                this.myBoard.showBoardConsole();
                 var col2 = prompt("What column do you choose?", "i.e. 1");
                 var row2 = prompt("What row do you choose?", "i.e. 1");
                 if (col2 != null && row2 != null) {
                     var figure2 = this.myBoard.returnOneCell(row2, col2);
-
+                    this.myBoard.showBoardConsole();
                 }//here must be an ELSE!!!!
-                this.showBoard();
+
                 if (figure1.character === figure2.character) {
                     alert("Congrats! you win 50 points");
 
@@ -73,6 +73,7 @@ var Game=function()
                     this.myBoard.hiddenOneCell(row1, col1);
                     this.myBoard.hiddenOneCell(row2, col2);
                     alert("Sorry! you have to try again");
+                    this.myBoard.showBoardConsole();
                     // if they aren't equal hide the cells
                     fails = fails +1;
                 }

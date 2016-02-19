@@ -73,15 +73,17 @@ Board.prototype.setDimension = function(number){
  */
 Board.prototype.fillCharacter = function(){
 
-    var text='',charac;
+    var text='',letter;
     var SOURCE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var x,y;
     var numberOfPairs=(this.dimension*this.dimension)/2;
 
 
-    for( var i=0; i < numberOfPairs; i++ )
-        text += SOURCE.charAt(Math.floor(Math.random() * SOURCE.length));
-
+    for( var i=0; i < numberOfPairs; i++ ) {
+        letter=SOURCE.charAt(Math.floor(Math.random() * SOURCE.length));
+        text += letter;
+        SOURCE.replace(letter, '');
+    }
     for (var j=0;j<text.length;j++)
     {//For each letter, twice assign in a empty cell
         charac=text[j];
@@ -112,19 +114,22 @@ Board.prototype.fillCharacter = function(){
 };
 
 Board.prototype.showBoardConsole = function(){
-
+    console.clear();
     for (var i = 0; i < this.dimension ; i++ )
     {
-        var line = '';
-
-        for (var j = 0; j < number ; j++ )
+        var line = ''+i;
+        var ishidden,characterObtained;
+        for (var j = 0; j < this.dimension ; j++ )
         {
-            if(this.cells[i][j].showState())
+            ishidden=this.cells[i][j].showState();
+            if(ishidden)
             {
-                    line = line + ' | ' + cell[i][j].hiddenCharacter;
+                characterObtained=this.cells[i][j].hiddenCharacter;
+                    line = line + ' | ' + characterObtained;
             }else
             {
-                line = line + ' | ' + this.cells[i][j].character;
+                characterObtained=this.cells[i][j].character;
+                line = line + ' | ' + characterObtained;
             }
         }
 
