@@ -61,7 +61,7 @@ Player.prototype.setAge = function(age){
 };
 
 Player.prototype.setCurrentScore = function(score){
-    this.currentScore = score;
+    this.currentScore = score ;
 };
 
 Player.prototype.getCurrentScore = function(){
@@ -73,7 +73,7 @@ Player.prototype.setTotalScore = function(score){
 };
 
 Player.prototype.getTotalScore = function(){
-    return this.totalScore;
+    return this.currentScore;
 };
 Player.prototype.getNickName = function(){
     return this.nickName;
