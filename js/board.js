@@ -15,11 +15,18 @@ Board.prototype.returnCells = function(){
 };
 
 Board.prototype.returnOneCell = function(row, column){
+    this.cells[row][column].setShowState(false);
     return this.cells[row][column];
+
+};
+Board.prototype.hiddenOneCell = function(row, column){
+    this.cells[row][column].setShowState(true);
+
+
 };
 
 Board.prototype.createBoard= function(){
-    var cells = new Array(this.dimenssion || 0),
+    var cells = new Array(this.dimension || 0),
         i = length;
 
     if (arguments.length > 1) {
@@ -35,6 +42,7 @@ Board.prototype.createBoard= function(){
  */
 Board.prototype.setDimension = function(number){
     //Inicilize matrix
+    this.dimension=number;
 
     for (var i = 0; i < number ; i++ )
     {
