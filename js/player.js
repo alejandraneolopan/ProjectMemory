@@ -16,14 +16,7 @@ var Player=function(id,name,age)
     this.totalScore = 0;
     this.currentScore = 0;
     this.nickName='';
-   // this.playerScore=new PlayerScore();
-  //methods
 
-    /*Player.prototype.playGame=function()
-    {
-
-    }
-    ;*/
 };
 
 var p = new Player();
@@ -62,10 +55,6 @@ Player.prototype.setAge = function(age){
 
 Player.prototype.setCurrentScore = function(score){
     this.currentScore = score ;
-};
-
-Player.prototype.getCurrentScore = function(){
-    return this.currentScore;
 };
 
 Player.prototype.setTotalScore = function(score){

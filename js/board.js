@@ -25,17 +25,7 @@ Board.prototype.hiddenOneCell = function(row, column){
 
 };
 
-Board.prototype.createBoard= function(){
-    var cells = new Array(this.dimension || 0),
-        i = length;
 
-    if (arguments.length > 1) {
-        var args = Array.prototype.slice.call(arguments, 1);
-        while(i--) arr[length-1 - i] = createArray.apply(this, args);
-    }
-
-    return arr;
-};
 
 /*
  * params{int} number Define the matrix dimension nxn
@@ -54,18 +44,6 @@ Board.prototype.setDimension = function(number){
         }
     }
 
-
-    /*Ejemplo 2
-
-     array $tabla 2 x 3
-     var $tabla = [[1,2,3],[3,4,5]];
-     for ($indice in $tabla){
-     print ($indice+ "=>" + $tabla[$indice]);
-     }
-
-     devuelve:
-     0=>1,2,3
-     1=>3,4,5 */
 };
 
 /*

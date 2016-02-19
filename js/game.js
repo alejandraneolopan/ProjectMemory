@@ -29,12 +29,30 @@
 
 var Game=function()
 {
-    this.player=new Player(1,'Canito',23 );
+    this.player=new Player();
     this.myBoard = new Board();
+
+
+};
+Game.prototype.startGame=function(){
+    //Setting a new player
+    if (arguments[0].length>0)
+    {
+        this.player.setId(arguments[0]);
+    }
+    else{
+        this.player.setId(1);
+    }
+    if (arguments[1].length>0)
+    {
+        this.player.setName(arguments[1]);
+    }
+    else{
+        this.player.setName('Canito');
+    }
 
     var fails = 0;
     var wins = 0;
-
 
     var dimension = prompt("Enter the dimension of the board", "i.e. 6");
     if (dimension != null) {
@@ -103,10 +121,8 @@ var Game=function()
 
 
 
-
 };
-
-Game.prototype.showBoard=function()
+Game.prototype.showBoardByGUI=function()
 {
     //First time
     var cells=this.myBoard.returnCells();
@@ -158,54 +174,7 @@ Game.prototype.showBoard=function()
     //Next time is through by figures
 };
 
-Game.prototype.showBoardConsole=function()
-{
-    //First time
-    var cells=this.myBoard.returnCells();
-    var cols=this.myBoard.dimension;
-    var rows=this.myBoard.dimension;
-    var table2= document.createElement('table');
-    table2.setAttribute('align','center');
-    var newButton,textButton;
-    var tr2,td2;
-
-    for (var i2 = 0; i2 < rows; i2++) {
-        tr2 = document.createElement('tr');
-        for (var j = 0; j < cols; j++)
-        {
-            //Add a button
-            newButton = document.createElement('button');
-
-            if (cells[i2][j].showState)
-            {
-                textButton = document.createTextNode(cells[i2][j].hiddenCharacter);
-            }// Create a text node with the cell value
-            else {
-                textButton = document.createTextNode(cells[i2][j].character);
-            }
-            newButton.appendChild(textButton);
-            newButton.setAttribute('row',i2);
-            newButton.setAttribute('col',j);
-            newButton.addEventListener('click',function(e){
-                e.target.textContent=cells[e.target.getAttribute('row')][e.getAttribute('col')].character;
-
-            });
-            //Put on td
-            td2 = document.createElement('td');
-            td2.appendChild(newButton);
-            //tr2.innerHTML = tr2.innerHTML.concat( td2.outerHTML);
-            tr2.appendChild(td2);
-        }
-        table2.appendChild(tr2);
-
-    }
-
-    var body1=document.getElementsByTagName("body")[0];
-
-    body1.appendChild(table2);
-    document.body.appendChild(table2);
-    //Next time is through by figures
-};
 window.onload=function() {
-    var game3 = new Game();
+    var playGame = new Game();
+    playGame.startGame(1,'Samuel');
 };
