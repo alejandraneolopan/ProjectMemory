@@ -111,5 +111,28 @@ Board.prototype.fillCharacter = function(){
     }
 };
 
+Board.prototype.showBoardConsole = function(){
+
+    for (var i = 0; i < this.dimension ; i++ )
+    {
+        var line = '';
+
+        for (var j = 0; j < number ; j++ )
+        {
+            if(this.cells[i][j].showState())
+            {
+                    line = line + ' | ' + cell[i][j].hiddenCharacter;
+            }else
+            {
+                line = line + ' | ' + this.cells[i][j].character;
+            }
+        }
+
+        line = line + ' | ';
+
+        console.log(line);
+    }
+};
+
 
 
