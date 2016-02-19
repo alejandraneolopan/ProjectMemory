@@ -1,83 +1,102 @@
 /**
- * Created by alejandraneolopan on 2/10/2016.
+ *
+ *  Tasks:
+ * Create a object called Board
+ * Ask user the dimension of the board
+ * Save that dimension in a var
+ * MyBoard will call .SetDimension(var)
+ * MyBoard.fillcharacters
+ * Then show Board in the view
+ * And display the board with the JS task
+ *
+ * Ask user what row and columm he wants to see
+ * Then show that cell
+ *
+ * Then Ask again for a row and column
+ * and show it
+ *
+ * Verify that that cells ara equal
+ * and
+ * if they are equal add points and set the hidden property to false
+ * if they aren't hide the cells
+ *
+ *
  */
 /**
  * Game Class
  * @author Team QA
  */
+
 var Game=function()
 {
     this.player=new Player(1,'Canito',23 );
     this.myBoard = new Board();
-    /* My tasks for tomorrow (Ana's tasks):
-    * Create a object called Board
-    * Ask user the dimension of the board
-    * Save that dimension in a var
-    * MyBoard will call .SetDimension(var)
-    * MyBoard.fillcharacters
-    * Then show Board in the view
-    * And display the board with the JS task
-    *
-    * Ask user what row and columm he wants to see
-    * Then show that cell
-    *
-    * Then Ask again for a row and column
-    * and show it
-    *
-    * Verify that that cells ara equal
-    * and
-    * if they are equal add points and set the hidden property to false
-    * if they aren't hide the cells
-    *
-    * */
+
+    var fails = 0;
+    var wins = 0;
+
 
     var dimension = prompt("Enter the dimension of the board", "i.e. 6");
     if (dimension != null) {
         this.myBoard.setDimension(dimension);
         this.myBoard.fillCharacter();
        // this.showBoardConsole(); // AL
+        var numberOfPairs = (dimension*dimension)/2;
+        while ( fails < dimension && wins < numberOfPairs ) {
+            var col1 = prompt("What column do you choose?", "i.e. 2");
+            var row1 = prompt("What row do you choose?", "i.e. 1");
 
-        var col1 = prompt("What column do you choose?","i.e. 2");
-        var row1 = prompt("What row do you choose?","i.e. 1");
+            if (col1 != null && row1 != null) {
 
-        if(col1 != null && row1 != null){
+                var figure1 = this.myBoard.returnOneCell(row1, col1);
+                // Then ask again for a row and column and show it
 
-            var figure1= this.myBoard.returnOneCell(row1, col1);
-            // Then ask again for a row and column and show it
+                var col2 = prompt("What column do you choose?", "i.e. 1");
+                var row2 = prompt("What row do you choose?", "i.e. 1");
+                if (col2 != null && row2 != null) {
+                    var figure2 = this.myBoard.returnOneCell(row2, col2);
 
-            var col2 = prompt("What column do you choose?","i.e. 1");
-            var row2 = prompt("What row do you choose?","i.e. 1");
-            if(col2 != null && row2 != null){
-                var figure2=   this.myBoard.returnOneCell(row2, col2);
+                }//here must be an ELSE!!!!
+                this.showBoard();
+                if (figure1.character === figure2.character) {
+                    alert("Congrats! you win 50 points");
+
+                    //this.player.setCurrentScore(50);
+                    this.player.setTotalScore(50);
+
+                    wins = wins + 1;
+                    // if they are equal add points and set the hidden property to false
+
+
+                }
+                else {
+                    this.myBoard.hiddenOneCell(row1, col1);
+                    this.myBoard.hiddenOneCell(row2, col2);
+                    alert("Sorry! you have to try again");
+                    // if they aren't equal hide the cells
+                    fails = fails +1;
+                }
+
 
             }
-            this.showBoard();
-            if(figure1.character===figure2.character){
-                console.log("Congrats! you win 50 points");
-
-                this.player.setCurrentScore(50);
-                this.player.setTotalScore(50);
-                // if they are equal add points and set the hidden property to false
-
-
+            else {
+                alert("You need to choose a row and a column to continue playing");
             }
-            else{
-                this.myBoard.hiddenOneCell(row1, col1);
-                this.myBoard.hiddenOneCell(row2, col2);
-                console.log("Sorry! you have to try again");
-                // if they aren't equal hide the cells
-            }
+        }
 
-
+        if (wins == numberOfPairs){
+            alert("Congratulations YOU WIN!!!");
+            alert("Your Total Score is: " + this.player.getTotalScore());
         }
         else{
-            console.log("You need to choose a row and a column to continue playing");
+            alert("GAME OVER!");
+
         }
 
 
     }
     else{
-        console.log("You need to dimension the board to start playing!");
+        alert("You need to dimension the board to start playing!");
     }
 
 
