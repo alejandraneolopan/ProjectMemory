@@ -1,47 +1,33 @@
 /**
  * Created by SamuelSahonero on 2/23/2016.
  */
-Game.prototype.startGame=function(){
-    //Setting a new player
-    if (arguments[0].length>0)
-    {
-        this.player.setId(arguments[0]);
-    }
-    else{
-        this.player.setId(1);
-    }
-    if (arguments[1].length>0)
-    {
-        this.player.setName(arguments[1]);
-    }
-    else{
-        this.player.setName('Canito');
-    }
+var GUIView=function(gameToPlay)
+{
+    this.myGame=gameToPlay;
+};
 
-    var fails = 0;
-    var wins = 0;
+GUIView.prototype.readPlayer=function() {
 
+    var player=new Player();
+    //Get all data of html file
+    return player;
+};
+
+GUIView.prototype.readBoardDimension=function() {
     var dimension = prompt("Enter the dimension of the board", "i.e. 6");
     if (dimension != null) {
-        this.myBoard.setDimension(dimension);
-        this.myBoard.fillCharacter();
-        this.myBoard.showBoardConsole(); // AL
-        var numberOfPairs = (dimension*dimension)/2;
-        while ( fails < dimension && wins < numberOfPairs ) {
-            var col1 = prompt("What column do you choose?", "i.e. 2");
-            var row1 = prompt("What row do you choose?", "i.e. 1");
+        return dimension;
+    }
 
-            if (col1 != null && row1 != null) {
+};
+
+  //DisplayOneCell(x,y)
 
                 var figure1 = this.myBoard.returnOneCell(row1, col1);
                 // Then ask again for a row and column and show it
                 this.myBoard.showBoardConsole();
-                var col2 = prompt("What column do you choose?", "i.e. 1");
-                var row2 = prompt("What row do you choose?", "i.e. 1");
-                if (col2 != null && row2 != null) {
-                    var figure2 = this.myBoard.returnOneCell(row2, col2);
-                    this.myBoard.showBoardConsole();
-                }//here must be an ELSE!!!!
+
+ //CompareTwoCell(x1,y1,x2,y2)
 
                 if (figure1.character === figure2.character) {
                     alert("Congrats! you win 50 points");
@@ -55,6 +41,7 @@ Game.prototype.startGame=function(){
 
                 }
                 else {
+                    //HideOneCell
                     this.myBoard.hiddenOneCell(row1, col1);
                     this.myBoard.hiddenOneCell(row2, col2);
                     alert("Sorry! you have to try again");
@@ -63,13 +50,7 @@ Game.prototype.startGame=function(){
                     fails = fails +1;
                 }
 
-
-            }
-            else {
-                alert("You need to choose a row and a column to continue playing");
-            }
-        }
-
+//Winner
         if (wins == numberOfPairs){
             alert("Congratulations YOU WIN!!!");
             alert("Your Total Score is: " + this.player.getTotalScore());
@@ -80,20 +61,12 @@ Game.prototype.startGame=function(){
         }
 
 
-    }
-    else{
-        alert("You need to dimension the board to start playing!");
-    }
-
-
-
-
-};
-
-Game.prototype.showBoardByGUI=function()
+GUIView.prototype.showBoard=function()
 {
+    //Second time--> Quit table-->Clear
     //First time
-    var cells=this.myBoard.returnCells();
+
+    var cells=this.myGame.myBoard.returnCells();
     var cols=this.myBoard.dimension;
     var rows=this.myBoard.dimension;
     var rowActual,colActual;
@@ -110,16 +83,18 @@ Game.prototype.showBoardByGUI=function()
             newButton = document.createElement('button');
             cellIsHidden=cells[i2][j].showState();
             if (cellIsHidden)
-            {
+            {// Create a text node with the cell value
                 textButton = document.createTextNode(cells[i2][j].hiddenCharacter);
-            }// Create a text node with the cell value
-            else {
+            }
+            else
+            {
                 textButton = document.createTextNode(cells[i2][j].character);
             }
             newButton.appendChild(textButton);
             newButton.setAttribute('row',i2);
             newButton.setAttribute('col',j);
             newButton.addEventListener('click',function(e){
+                //****************------------------------Otra funcion q cuente si ya son 2 ==>Compare
                 rowActual=e.target.getAttribute('row');
                 colActual=e.target.getAttribute('col');
                 e.target.textContent=cells[rowActual][colActual].character;
@@ -128,7 +103,6 @@ Game.prototype.showBoardByGUI=function()
             //Put on td
             td2 = document.createElement('td');
             td2.appendChild(newButton);
-            //tr2.innerHTML = tr2.innerHTML.concat( td2.outerHTML);
             tr2.appendChild(td2);
         }
         table2.appendChild(tr2);
@@ -142,7 +116,3 @@ Game.prototype.showBoardByGUI=function()
     //Next time is through by figures
 };
 
-window.onload=function() {
-    var playGame = new Game();
-    playGame.startGame(1,'Samuel');
-};
