@@ -4,7 +4,7 @@
 /*
 * Class Player
 * Save the Player Data
-* Author: Ale & Ana 6 Samuel
+* Author: Alejandra & Ana 6 Samuel
  */
 
 var Player=function(id,name,age)

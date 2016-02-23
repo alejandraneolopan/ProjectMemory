@@ -2,7 +2,7 @@
  *@class Board - contains the matrix
  *
  *
- *  Created by AnaPinto on 2/5/2016.
+ *  Author: Alejandra & Ana 6 Samuel
  */
 var Board=function()
 {
@@ -31,7 +31,7 @@ Board.prototype.hiddenOneCell = function(row, column){
  * params{int} number Define the matrix dimension nxn
  */
 Board.prototype.setDimension = function(number){
-    //Inicilize matrix
+    //Initialize matrix
     this.dimension=number;
 
     for (var i = 0; i < number ; i++ )
