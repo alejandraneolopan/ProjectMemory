@@ -1,51 +1,22 @@
 /**
- *
- *  Tasks:
- * Create a object called Board
- * Ask user the dimension of the board
- * Save that dimension in a var
- * MyBoard will call .SetDimension(var)
- * MyBoard.fillcharacters
- * Then show Board in the view
- * And display the board with the JS task
- *
- * Ask user what row and columm he wants to see
- * Then show that cell
- *
- * Then Ask again for a row and column
- * and show it
- *
- * Verify that that cells ara equal
- * and
- * if they are equal add points and set the hidden property to false
- * if they aren't hide the cells
- *
- *
+ * Created by SamuelSahonero on 2/23/2016.
  */
-/**
- * Game Class
- * @author Team QA
- */
-
-var Game=function()
-{
-    this.player=new Player();
-    this.myBoard = new Board();
-    this.viewByConsole = new ConsoleView(this.myBoard);
-    this.viewByGUI = new GUIView(this.myBoard);
-};
-Board.prototype.showBoardConsole = function(){
-
-    this.viewByConsole.ShowBoard();
-};
-Board.prototype.showBoardGUI = function(){
-
-    this.viewByGUI.ShowBoard();
-};
 Game.prototype.startGame=function(){
     //Setting a new player
-    this.player.createPlayer();
-
+    if (arguments[0].length>0)
+    {
+        this.player.setId(arguments[0]);
+    }
+    else{
+        this.player.setId(1);
+    }
+    if (arguments[1].length>0)
+    {
+        this.player.setName(arguments[1]);
+    }
+    else{
+        this.player.setName('Canito');
+    }
 
     var fails = 0;
     var wins = 0;
@@ -117,4 +88,61 @@ Game.prototype.startGame=function(){
 
 
 
+};
+
+Game.prototype.showBoardByGUI=function()
+{
+    //First time
+    var cells=this.myBoard.returnCells();
+    var cols=this.myBoard.dimension;
+    var rows=this.myBoard.dimension;
+    var rowActual,colActual;
+    var table2= document.createElement('table');
+    table2.setAttribute('align','center');
+    var newButton,textButton;
+    var tr2,td2;
+    var cellIsHidden;
+    for (var i2 = 0; i2 < rows; i2++) {
+        tr2 = document.createElement('tr');
+        for (var j = 0; j < cols; j++)
+        {
+            //Add a button
+            newButton = document.createElement('button');
+            cellIsHidden=cells[i2][j].showState();
+            if (cellIsHidden)
+            {
+                textButton = document.createTextNode(cells[i2][j].hiddenCharacter);
+            }// Create a text node with the cell value
+            else {
+                textButton = document.createTextNode(cells[i2][j].character);
+            }
+            newButton.appendChild(textButton);
+            newButton.setAttribute('row',i2);
+            newButton.setAttribute('col',j);
+            newButton.addEventListener('click',function(e){
+                rowActual=e.target.getAttribute('row');
+                colActual=e.target.getAttribute('col');
+                e.target.textContent=cells[rowActual][colActual].character;
+
+            });
+            //Put on td
+            td2 = document.createElement('td');
+            td2.appendChild(newButton);
+            //tr2.innerHTML = tr2.innerHTML.concat( td2.outerHTML);
+            tr2.appendChild(td2);
+        }
+        table2.appendChild(tr2);
+
+    }
+
+    var body1=document.getElementsByTagName("body")[0];
+
+    body1.appendChild(table2);
+    document.body.appendChild(table2);
+    //Next time is through by figures
+};
+
+window.onload=function() {
+    var playGame = new Game();
+    playGame.startGame(1,'Samuel');
 };

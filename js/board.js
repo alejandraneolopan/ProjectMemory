@@ -91,52 +91,7 @@ Board.prototype.fillCharacter = function(){
     }
 };
 
-Board.prototype.showBoardConsole = function(){
-    console.clear();
-    for (var i = 0; i < this.dimension ; i++ )
-    {
-        var line = '' + i;
-        var ishidden, characterObtained;
-        var headerLine = '';
 
-        for (var j = 0; j < this.dimension ; j++ )
-        {
-            if(i === 0)
-            {
-                if(j === 0)
-                {
-                    headerLine = headerLine + '__| ' + j;
-                }else
-                {
-                    headerLine = headerLine + ' | ' + j;
-                }
-            }
-
-            ishidden = this.cells[i][j].showState();
-
-            if(ishidden)
-            {
-                characterObtained = this.cells[i][j].hiddenCharacter;
-                line = line + ' | ' + characterObtained;
-
-            }else
-            {
-                characterObtained = this.cells[i][j].character;
-                line = line + ' | ' + characterObtained;
-            }
-        }
-
-        line = line + ' | ';
-
-        if(i === 0)
-        {
-            headerLine = headerLine + ' | ';
-            console.log(headerLine);
-        }
-
-        console.log(line);
-    }
-};
 
 
 

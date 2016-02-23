@@ -1,51 +1,26 @@
 /**
- *
- *  Tasks:
- * Create a object called Board
- * Ask user the dimension of the board
- * Save that dimension in a var
- * MyBoard will call .SetDimension(var)
- * MyBoard.fillcharacters
- * Then show Board in the view
- * And display the board with the JS task
- *
- * Ask user what row and columm he wants to see
- * Then show that cell
- *
- * Then Ask again for a row and column
- * and show it
- *
- * Verify that that cells ara equal
- * and
- * if they are equal add points and set the hidden property to false
- * if they aren't hide the cells
- *
- *
+ * Created by SamuelSahonero on 2/23/2016.
  */
-/**
- * Game Class
- * @author Team QA
- */
-
-var Game=function()
+var ConsoleView=function()
 {
-    this.player=new Player();
-    this.myBoard = new Board();
-    this.viewByConsole = new ConsoleView(this.myBoard);
-    this.viewByGUI = new GUIView(this.myBoard);
-};
-Board.prototype.showBoardConsole = function(){
 
-    this.viewByConsole.ShowBoard();
-};
-Board.prototype.showBoardGUI = function(){
-
-    this.viewByGUI.ShowBoard();
 };
 Game.prototype.startGame=function(){
     //Setting a new player
-    this.player.createPlayer();
-
+    if (arguments[0].length>0)
+    {
+        this.player.setId(arguments[0]);
+    }
+    else{
+        this.player.setId(1);
+    }
+    if (arguments[1].length>0)
+    {
+        this.player.setName(arguments[1]);
+    }
+    else{
+        this.player.setName('Canito');
+    }
 
     var fails = 0;
     var wins = 0;
@@ -117,4 +92,51 @@ Game.prototype.startGame=function(){
 
 
 
+};
+
+Board.prototype.showBoardConsole = function(){
+    console.clear();
+    for (var i = 0; i < this.dimension ; i++ )
+    {
+        var line = '' + i;
+        var ishidden, characterObtained;
+        var headerLine = '';
+
+        for (var j = 0; j < this.dimension ; j++ )
+        {
+            if(i === 0)
+            {
+                if(j === 0)
+                {
+                    headerLine = headerLine + '__| ' + j;
+                }else
+                {
+                    headerLine = headerLine + ' | ' + j;
+                }
+            }
+
+            ishidden = this.cells[i][j].showState();
+
+            if(ishidden)
+            {
+                characterObtained = this.cells[i][j].hiddenCharacter;
+                line = line + ' | ' + characterObtained;
+
+            }else
+            {
+                characterObtained = this.cells[i][j].character;
+                line = line + ' | ' + characterObtained;
+            }
+        }
+
+        line = line + ' | ';
+
+        if(i === 0)
+        {
+            headerLine = headerLine + ' | ';
+            console.log(headerLine);
+        }
+
+        console.log(line);
+    }
 };
