@@ -5,7 +5,7 @@ var ConsoleView=function()
 {
 
 };
-Game.prototype.startGame=function(){
+ConsoleView.prototype.showBoard=function(){
     //Setting a new player
     if (arguments[0].length>0)
     {

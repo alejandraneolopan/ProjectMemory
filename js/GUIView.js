@@ -1,9 +1,9 @@
 /**
  * Created by SamuelSahonero on 2/23/2016.
  */
-var GUIView=function(gameToPlay)
+var GUIView=function()
 {
-    this.myGame=gameToPlay;
+    this.myBoard=null;
 };
 
 GUIView.prototype.readPlayer=function() {
@@ -21,52 +21,13 @@ GUIView.prototype.readBoardDimension=function() {
 
 };
 
-  //DisplayOneCell(x,y)
 
-                var figure1 = this.myBoard.returnOneCell(row1, col1);
-                // Then ask again for a row and column and show it
-                this.myBoard.showBoardConsole();
-
- //CompareTwoCell(x1,y1,x2,y2)
-
-                if (figure1.character === figure2.character) {
-                    alert("Congrats! you win 50 points");
-
-                    //this.player.setCurrentScore(50);
-                    this.player.setTotalScore(50);
-
-                    wins = wins + 1;
-                    // if they are equal add points and set the hidden property to false
-
-
-                }
-                else {
-                    //HideOneCell
-                    this.myBoard.hiddenOneCell(row1, col1);
-                    this.myBoard.hiddenOneCell(row2, col2);
-                    alert("Sorry! you have to try again");
-                    this.myBoard.showBoardConsole();
-                    // if they aren't equal hide the cells
-                    fails = fails +1;
-                }
-
-//Winner
-        if (wins == numberOfPairs){
-            alert("Congratulations YOU WIN!!!");
-            alert("Your Total Score is: " + this.player.getTotalScore());
-        }
-        else{
-            alert("GAME OVER!");
-
-        }
-
-
-GUIView.prototype.showBoard=function()
-{
+GUIView.prototype.showBoard=function(boardToPlay)
+{   this.myBoard=boardToPlay;
     //Second time--> Quit table-->Clear
     //First time
 
-    var cells=this.myGame.myBoard.returnCells();
+    var cells=this.myBoard.returnCells();
     var cols=this.myBoard.dimension;
     var rows=this.myBoard.dimension;
     var rowActual,colActual;
@@ -93,13 +54,7 @@ GUIView.prototype.showBoard=function()
             newButton.appendChild(textButton);
             newButton.setAttribute('row',i2);
             newButton.setAttribute('col',j);
-            newButton.addEventListener('click',function(e){
-                //****************------------------------Otra funcion q cuente si ya son 2 ==>Compare
-                rowActual=e.target.getAttribute('row');
-                colActual=e.target.getAttribute('col');
-                e.target.textContent=cells[rowActual][colActual].character;
-
-            });
+            newButton.addEventListener('click',this.displayOneCell);
             //Put on td
             td2 = document.createElement('td');
             td2.appendChild(newButton);
@@ -116,3 +71,67 @@ GUIView.prototype.showBoard=function()
     //Next time is through by figures
 };
 
+
+GUIView.prototype.displayOneCell=function(e){
+
+        var cells=playGame.myBoard.returnCells();
+        var rowActual=e.target.getAttribute('row');
+        var colActual=e.target.getAttribute('col');
+        e.target.textContent=cells[rowActual][colActual].character;//*****Hidden==>False......displayOneCell
+        playGame.numberOfClicks++;
+        switch (playGame.numberOfClicks)
+        {
+            case 1:
+                playGame.figure1=cells[rowActual][colActual];
+                playGame.row1=rowActual;
+                playGame.col1=colActual;
+                break;
+            case 2:
+                playGame.figure2=cells[rowActual][colActual];
+                playGame.row2=rowActual;
+                playGame.col2=colActual;
+                var char1=playGame.figure1.getCharacter();
+                var char2=playGame.figure2.getCharacter();
+                if (char1 === char2) {//Aciertos
+                    playGame.wins++;
+                    playGame.player.setCurrentScore(50);
+                    this.printMessage("Congrats! you win 50 points");  //*****HTML ==> Cuadro de texto que diga q gano 50
+                    playGame.verifyWinner();//*****Verify winner
+                }
+                else
+                {
+                    playGame.fails++;
+                    //Set en Oculto
+                }
+                break;
+            default:
+                var char1=playGame.figure1.getCharacter();
+                var char2=playGame.figure2.getCharacter();
+                if (char1 != char2) {
+                    this.hiddeSelectedButtons();///*******myBoard.hiddenOneCell(x,y)//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                }
+
+                break;
+        }
+
+};
+/*                else {
+ //HideOneCell
+ this.myGame.myBoard.hiddenOneCell(row1, col1);
+ this.myGame.myBoard.hiddenOneCell(row2, col2);
+ alert("Sorry! you have to try again");
+ this.myGame.myBoard.showBoardConsole();
+ // if they aren't equal hide the cells
+ fails = fails +1;
+ }
+
+ //Winner
+ if (wins == numberOfPairs){
+ alert("Congratulations YOU WIN!!!");
+ alert("Your Total Score is: " + this.player.getTotalScore());
+ }
+ else{
+ alert("GAME OVER!");
+
+ }
+ */

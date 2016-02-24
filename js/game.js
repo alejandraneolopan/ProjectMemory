@@ -31,8 +31,18 @@ var Game=function()
 {
     this.player=new Player();
     this.myBoard = new Board();
-    this.viewByConsole = new ConsoleView(this.myBoard);
-    this.viewByGUI = new GUIView(this.myBoard);
+    //this.viewByConsole = new ConsoleView();
+    this.viewByGUI = new GUIView();
+    this.attemps=0;
+    this.numberOfClicks=0;
+    this.row1=0;
+    this.row2=0;
+    this.col1=0;
+    this.col2=0;
+    this.figure1=new Figure();
+    this.figure2=new Figure();
+    this.fails = 0;
+    this.wins = 0;
 };
 Board.prototype.showBoardConsole = function(){
 
@@ -49,14 +59,14 @@ Game.prototype.startGame=function(){
     var dimension=this.viewByGUI.readBoardDimension();
     this.myBoard.setDimension(dimension);
     this.myBoard.fillCharacter();
-    this.viewByGUI.showBoard();
 
-    var fails = 0;
-    var wins = 0;
+    this.viewByGUI.showBoard(this.myBoard);
+
+
 
 };
-
+var playGame;
 window.onload=function() {
-    var playGame = new Game();
+   playGame = new Game();
     playGame.startGame();
 };
