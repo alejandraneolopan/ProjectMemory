@@ -74,12 +74,12 @@ Game.prototype.verifyWinner=function()
 {
 
     if (this.wins === this.attemps){
-        GUIView.printMessage('Congratulations YOU WIN!!!','Your Total Score is: ' + this.player.getTotalScore());
+        this.viewByGUI.printMessage('Congratulations YOU WIN!!!','Your Total Score is: ' + this.player.getTotalScore());
     }
 
     if (this.fails === this.dimension)
     {
-        GUIView.printMessage('GAME OVER!','Your Total Score is: ' + this.player.getTotalScore());
+        this.viewByGUI.printMessage('GAME OVER!','Your Total Score is: ' + this.player.getTotalScore());
 
     }
 
@@ -91,11 +91,12 @@ Game.prototype.compareCells=function(){
     {//Aciertos
         this.wins++;
         this.player.setCurrentScore(50);
-        this.printMessage('Congrats! you win 50 points');
+        this.viewByGUI.printMessage('Congrats! you win 50 points');
         this.verifyWinner();
     }
     else
     {
+        this.viewByGUI.printMessage('Sorry! Try again');
         this.fails++;
     }
 

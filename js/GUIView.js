@@ -96,8 +96,16 @@ GUIView.prototype.displayOneCell=function(e){
                 var char1=playGame.figure1.getCharacter();
                 var char2=playGame.figure2.getCharacter();
                 if (char1 != char2) {
-                    playGame.hideSelectedButtons();
+                    playGame.viewByGUI.hideSelectedButtons();
+
+
+                    //jQuery('table').find('button[row="1"][col="1"]')
                 }
+                playGame.figure1=figure;
+                playGame.row1=rowActual;
+                playGame.col1=colActual;
+                playGame.numberOfClicks=1;
+                break;
 
                 break;
         }
@@ -108,12 +116,12 @@ GUIView.prototype.displayOneCell=function(e){
 */
 GUIView.prototype.printMessage=function()
 {
-    var textmessage=getElementById('msg')[0];
+    var textmessage = document.getElementsByName('state_message')[0];
     var msg='';
 
     for (var i = 0; i <arguments.length ; i++)
     {
-        msg=arguments[i]+'&#13;&#10;';
+        msg=arguments[i]+'\\r\\n';
     }
 
     textmessage.value=msg;
@@ -124,5 +132,12 @@ GUIView.prototype.hideSelectedButtons=function()
 
     playGame.myBoard.hiddenOneCell(playGame.row1, playGame.col1);
     playGame.myBoard.hiddenOneCell(playGame.row2, playGame.col2);
+    var myButtonPath = 'button[row="'+ playGame.row1+'"][col="'+ playGame.col1 +'"]';
+    var myButtonObject = jQuery('table').find(myButtonPath);
+    myButtonObject.text(playGame.figure1.hiddenCharacter);
+
+    myButtonPath = 'button[row="'+ playGame.row2+'"][col="'+ playGame.col2 +'"]';
+    myButtonObject = jQuery('table').find(myButtonPath);
+    myButtonObject.text(playGame.figure2.hiddenCharacter);
 
 };

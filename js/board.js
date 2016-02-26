@@ -55,7 +55,8 @@ Board.prototype.fillCharacter = function(){
     var SOURCE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     if((this.dimension % 2) === 1)
     {
-        this.fillCharacterOneRanCell('?');
+        this.fillCharacterOneRanCell('~');
+
     }
     var numberOfPairs=Math.floor((this.dimension*this.dimension)/2);
     var charac;
@@ -89,6 +90,11 @@ Board.prototype.fillCharacterOneRanCell = function(charac){
     }
 
     this.cells[x][y].setCharacter(charac);
+
+    if (charac === '~')
+    {
+        this.cells[x][y].setShowState(false);
+    }
 
 }
 
