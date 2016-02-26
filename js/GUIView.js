@@ -14,10 +14,12 @@ GUIView.prototype.readPlayer=function() {
 };
 
 GUIView.prototype.readBoardDimension=function() {
-    var dimension = prompt("Enter the dimension of the board", "i.e. 6");
+   /* var dimension = prompt('Enter the dimension of the board', 'i.e. 6');
     if (dimension != null) {
         return dimension;
-    }
+    }*/
+    var dimensionBoard=document.getElementsByName('board_dim')[0].value;
+    return dimensionBoard;
 
 };
 
@@ -64,9 +66,6 @@ GUIView.prototype.showBoard=function(boardToPlay)
 
     }
 
-    var body1=document.getElementsByTagName("body")[0];
-
-    body1.appendChild(table2);
     document.body.appendChild(table2);
     //Next time is through by figures
 };
@@ -77,61 +76,53 @@ GUIView.prototype.displayOneCell=function(e){
         var cells=playGame.myBoard.returnCells();
         var rowActual=e.target.getAttribute('row');
         var colActual=e.target.getAttribute('col');
-        e.target.textContent=cells[rowActual][colActual].character;//*****Hidden==>False......displayOneCell
+        var figure = playGame.myBoard.returnOneCell(rowActual, colActual);
+        e.target.textContent=figure.getCharacter();
         playGame.numberOfClicks++;
         switch (playGame.numberOfClicks)
         {
             case 1:
-                playGame.figure1=cells[rowActual][colActual];
+                playGame.figure1=figure;
                 playGame.row1=rowActual;
                 playGame.col1=colActual;
                 break;
             case 2:
-                playGame.figure2=cells[rowActual][colActual];
+                playGame.figure2=figure;
                 playGame.row2=rowActual;
                 playGame.col2=colActual;
-                var char1=playGame.figure1.getCharacter();
-                var char2=playGame.figure2.getCharacter();
-                if (char1 === char2) {//Aciertos
-                    playGame.wins++;
-                    playGame.player.setCurrentScore(50);
-                    this.printMessage("Congrats! you win 50 points");  //*****HTML ==> Cuadro de texto que diga q gano 50
-                    playGame.verifyWinner();//*****Verify winner
-                }
-                else
-                {
-                    playGame.fails++;
-                    //Set en Oculto
-                }
+                playGame.compareCells();
                 break;
             default:
                 var char1=playGame.figure1.getCharacter();
                 var char2=playGame.figure2.getCharacter();
                 if (char1 != char2) {
-                    this.hiddeSelectedButtons();///*******myBoard.hiddenOneCell(x,y)//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    playGame.hideSelectedButtons();
                 }
 
                 break;
         }
 
 };
-/*                else {
- //HideOneCell
- this.myGame.myBoard.hiddenOneCell(row1, col1);
- this.myGame.myBoard.hiddenOneCell(row2, col2);
- alert("Sorry! you have to try again");
- this.myGame.myBoard.showBoardConsole();
- // if they aren't equal hide the cells
- fails = fails +1;
- }
+/*
+* @param string msg This is the message for display into a textarea
+*/
+GUIView.prototype.printMessage=function()
+{
+    var textmessage=getElementById('msg')[0];
+    var msg='';
 
- //Winner
- if (wins == numberOfPairs){
- alert("Congratulations YOU WIN!!!");
- alert("Your Total Score is: " + this.player.getTotalScore());
- }
- else{
- alert("GAME OVER!");
+    for (var i = 0; i <arguments.length ; i++)
+    {
+        msg=arguments[i]+'&#13;&#10;';
+    }
 
- }
- */
+    textmessage.value=msg;
+
+};
+GUIView.prototype.hideSelectedButtons=function()
+{
+
+    playGame.myBoard.hiddenOneCell(playGame.row1, playGame.col1);
+    playGame.myBoard.hiddenOneCell(playGame.row2, playGame.col2);
+
+};

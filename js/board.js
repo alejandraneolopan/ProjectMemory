@@ -53,43 +53,44 @@ Board.prototype.fillCharacter = function(){
 
     var text='',letter;
     var SOURCE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var x,y;
-    var numberOfPairs=(this.dimension*this.dimension)/2;
-
+    if((this.dimension % 2) === 1)
+    {
+        this.fillCharacterOneRanCell('?');
+    }
+    var numberOfPairs=Math.floor((this.dimension*this.dimension)/2);
+    var charac;
 
     for( var i=0; i < numberOfPairs; i++ ) {
         letter=SOURCE.charAt(Math.floor(Math.random() * SOURCE.length));
         text += letter;
-        SOURCE.replace(letter, '');
+        SOURCE=SOURCE.replace(letter, '');
     }
     for (var j=0;j<text.length;j++)
     {//For each letter, twice assign in a empty cell
         charac=text[j];
 
-        x=Math.floor(Math.random() * this.dimension);
-        y=Math.floor(Math.random() * this.dimension);
-        while (this.cells[x][y].isEmptyCell()===false)
-        {
-            x = Math.floor(Math.random() * this.dimension);
-            y = Math.floor(Math.random() * this.dimension);
-        }
+        this.fillCharacterOneRanCell(charac);
 
-        this.cells[x][y].setCharacter(charac);
-
-
-        x=Math.floor(Math.random() * this.dimension);
-        y=Math.floor(Math.random() * this.dimension);
-        while (this.cells[x][y].isEmptyCell()===false)
-        {
-            x = Math.floor(Math.random() * this.dimension);
-            y = Math.floor(Math.random() * this.dimension);
-        }
-
-        this.cells[x][y].setCharacter(charac);
+        this.fillCharacterOneRanCell(charac);
 
 
     }
 };
+Board.prototype.fillCharacterOneRanCell = function(charac){
+    var x,y;
+    x=Math.floor(Math.random() * this.dimension);
+    y=Math.floor(Math.random() * this.dimension);
+    var emptyCell= this.cells[x][y].isEmptyCell();
+    while (emptyCell === false)
+    {
+        x = Math.floor(Math.random() * this.dimension);
+        y = Math.floor(Math.random() * this.dimension);
+        emptyCell= this.cells[x][y].isEmptyCell();
+    }
+
+    this.cells[x][y].setCharacter(charac);
+
+}
 
 
 

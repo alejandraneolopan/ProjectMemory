@@ -52,21 +52,58 @@ Board.prototype.showBoardGUI = function(){
 
     this.viewByGUI.ShowBoard();
 };
+/*
+*The button activate this
+*
+ */
 Game.prototype.startGame=function(){
     //Setting a new player
-    this.player=this.viewByGUI.readPlayer();
+   // this.player=this.viewByGUI.readPlayer();
     //Inicialize Board
-    var dimension=this.viewByGUI.readBoardDimension();
-    this.myBoard.setDimension(dimension);
-    this.myBoard.fillCharacter();
+    var dimension=playGame.viewByGUI.readBoardDimension();
+    //var dimension=3;
+    playGame.myBoard.setDimension(dimension);
+    playGame.attemps= Math.floor((playGame.myBoard.dimension*playGame.myBoard.dimension)/2);
+    playGame.myBoard.fillCharacter();
+    playGame.viewByGUI.showBoard(playGame.myBoard);
 
-    this.viewByGUI.showBoard(this.myBoard);
 
 
+};
+Game.prototype.verifyWinner=function()
+{
+
+    if (this.wins === this.attemps){
+        GUIView.printMessage('Congratulations YOU WIN!!!','Your Total Score is: ' + this.player.getTotalScore());
+    }
+
+    if (this.fails === this.dimension)
+    {
+        GUIView.printMessage('GAME OVER!','Your Total Score is: ' + this.player.getTotalScore());
+
+    }
+
+};
+Game.prototype.compareCells=function(){
+    var char1=this.figure1.getCharacter();
+    var char2=this.figure2.getCharacter();
+    if (char1 === char2)
+    {//Aciertos
+        this.wins++;
+        this.player.setCurrentScore(50);
+        this.printMessage('Congrats! you win 50 points');
+        this.verifyWinner();
+    }
+    else
+    {
+        this.fails++;
+    }
 
 };
 var playGame;
 window.onload=function() {
    playGame = new Game();
-    playGame.startGame();
+    var buttonSave=document.getElementsByName('save_btn')[0];
+    buttonSave.addEventListener('click',playGame.startGame);
+
 };
