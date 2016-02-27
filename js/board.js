@@ -8,6 +8,7 @@ var Board = function()
 {
     this.dimension = 0;
     this.cells = [];
+    this.CHARACTER_CELL_IN_BLANK='\u263a'
 };
 
 Board.prototype.returnCells = function()
@@ -55,7 +56,7 @@ Board.prototype.fillCharacter = function()
 
     if( (this.dimension % 2) === 1 )
     {
-        this.fillCharacterOneRanCell('~');
+        this.fillCharacterOneRanCell(this.CHARACTER_CELL_IN_BLANK);
     }
 
     var numberOfPairs = Math.floor( (this.dimension*this.dimension) / 2 );
@@ -95,7 +96,7 @@ Board.prototype.fillCharacterOneRanCell = function(charac)
 
     this.cells[x][y].setCharacter(charac);
 
-    if (charac === '~')
+    if (charac === this.CHARACTER_CELL_IN_BLANK)
     {
         this.cells[x][y].setShowState(false);
     }
