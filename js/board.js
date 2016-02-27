@@ -34,10 +34,11 @@ Board.prototype.setDimension = function(number)
     //Initialize matrix
     this.dimension = number;
 
-    for (var i = 0; i < number ; i++ )
+    for (var i = 0; i < number; i++ )
     {
         this.cells[i] = [];
-        for (var j = 0; j < number ; j++ )
+
+        for (var j = 0; j < number; j++ )
         {
             this.cells[i][j] = new Figure();
         }
