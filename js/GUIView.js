@@ -10,8 +10,19 @@ GUIView.prototype.readPlayer = function()
 {
     var player = new Player();
     //Get all data of html file
+    player.setName($('input#name').val());
+    player.setNickName($('input#nick').val());
+    player.setAge($('input#age').val());
+    player.setId($('input#id').val());
     return player;
 };
+
+/*
+GUIView.prototype.greetPlayer = function () {
+    
+}*/
+
+
 
 GUIView.prototype.readBoardDimension = function()
 {
@@ -19,9 +30,11 @@ GUIView.prototype.readBoardDimension = function()
     if (dimension != null) {
         return dimension;
     }*/
-    var dimensionBoard = document.getElementsByName('board_dim')[0].value;
+    //var dimensionBoard = document.getElementsByName('board_dim')[0].value;
+    var dimensionBoard = $('input#dim').val();
     return dimensionBoard;
 };
+
 
 
 GUIView.prototype.showBoard = function(boardToPlay)
