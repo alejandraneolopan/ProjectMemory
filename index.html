@@ -4,10 +4,51 @@
     <meta charset="UTF-8">
     <title></title>
 
+    <style type="text/css">
+        input{
+            padding: 9px;
+            border: solid 1px #d5d5d5;
+            outline: 0;
+            font: 13px Verdana, Tahoma, sans-serif;
+            width: 500px;
+            background: #FFFFFF;
+        }
+
+        p{
+            padding: 9px;
+            font-weight: bold;
+            outline: 0;
+            font: 13px Verdana, Tahoma, sans-serif;
+            width: 500px;
+            background: #FFFFFF;
+        }
+
+
+        input:hover,.preview-block input:focus{
+            border-color: #b1b1b1;
+        }
+        label{
+            font: 14px Verdana, Tahoma, sans-serif;
+            margin-left: 10px;
+            color: #555555;
+            width: 150px;
+            display: inline-block;
+        }
+        .StartButton {
+            width: auto;
+            padding: 9px 20px;
+            background: #3FB8AF;
+            border: 0;
+            font-size: 14px;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+    </style>
+
 <body>
 <form name="settings">
     <div>
-        Player
+        <p>Player</p>
         <label for="name">Player Name:</label>
         <input type="text" id="name" name="player_name" />
     </div>
@@ -23,13 +64,13 @@
         <label for="id">ID:</label>
         <input type="text" id="id" name="player_id" />
     </div>
-   Board
+        <p>Board</p>
     <div>
         <label for="dim">Dimension:</label>
         <input type="text" id="dim" name="board_dim" value="3"/>
     </div>
     <div class="button"><!--playGame.startGame()-->
-        <button type="button" onclick="" name="save_btn">START GAME</button>
+        <button class="StartButton" type="button" onclick="" name="save_btn">START GAME</button>
     </div>
 </form>
 
