@@ -72,6 +72,9 @@ Game.prototype.startGame = function()
     playGame.attemps = Math.floor( (playGame.myBoard.dimension*playGame.myBoard.dimension) / 2 );
     playGame.myBoard.fillCharacter();
     playGame.viewByGUI.showBoard(playGame.myBoard);
+
+    $('form').find('button').off('click',playGame.startGame)
+    //var button = $
 };
 
 Game.prototype.verifyWinner = function()
@@ -111,6 +114,9 @@ var playGame;
 window.onload = function()
 {
     playGame = new Game();
-    var buttonSave = document.getElementsByName('save_btn')[0];
-    buttonSave.addEventListener('click',playGame.startGame);
+    //var buttonSave = document.getElementsByName('save_btn')[0];
+    //buttonSave.addEventListener('click',playGame.startGame);
+    $('form').find('button').on('click',playGame.startGame)
+
+    //$('form').find('button').off('click',playGame.startGame)
 };
