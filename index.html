@@ -3,7 +3,55 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Memory Game</title>
-    <style>
+<style>
+    .h1{
+        font-family: 'Open Sans Condensed', sans-serif;
+        font-size: 85pt;
+        color:#fff;
+        background-color:#232323;
+        text-shadow:0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #49ff18, 0 0 30px #49ff18, 0 0 40px #49ff18, 0 0 55px #49ff18, 0 0 75px #49ff18
+    }
+</style>
+
+    <style type="text/css">
+        input{
+            padding: 9px;
+            border: solid 1px #d5d5d5;
+            outline: 0;
+            font: 13px Verdana, Tahoma, sans-serif;
+            width: 500px;
+            background: #FFFFFF;
+        }
+
+        p{
+            padding: 9px;
+            font-weight: bold;
+            outline: 0;
+            font: 13px Verdana, Tahoma, sans-serif;
+            width: 500px;
+            background: #FFFFFF;
+        }
+
+
+        input:hover,.preview-block input:focus{
+            border-color: #b1b1b1;
+        }
+        label{
+            font: 14px Verdana, Tahoma, sans-serif;
+            margin-left: 10px;
+            color: #555555;
+            width: 150px;
+            display: inline-block;
+        }
+        .StartButton {
+            width: auto;
+            padding: 9px 20px;
+            background: #3FB8AF;
+            border: 0;
+            font-size: 14px;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
     .buttonGame {
         background-color: #e7e7e7;
         font-weight: bold;
@@ -18,7 +66,7 @@
 <body>
 <form name="settings">
     <div>
-        Player
+        <p>Player</p>
         <label for="name">Player Name:</label>
         <input type="text" id="name" name="player_name" />
     </div>
@@ -34,21 +82,20 @@
         <label for="id">ID:</label>
         <input type="text" id="id" name="player_id" />
     </div>
-   Board
+        <p>Board</p>
     <div>
         <label for="dim">Dimension:</label>
         <input type="text" id="dim" name="board_dim" value="3"/>
     </div>
     <div class="button"><!--playGame.startGame()-->
-        <button type="button" onclick="" name="save_btn">Save Settings</button>
+        <button class="StartButton" type="button" onclick="" name="save_btn">START GAME</button>
     </div>
 </form>
 
 <div>
     <label for="msg">State Message:</label>
-    <textarea id="msg" name="state_message"></textarea>
+    <textarea class="h1" id="msg" name="state_message"></textarea>
 </div>
-
 </body>
 <script src="js/jquery-1.12.1.js"></script>
 <script src="js/figure.js"></script>
