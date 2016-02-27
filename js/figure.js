@@ -9,25 +9,27 @@
   * hiddenCharacter {char} property is the character displayed when the state isHidden is true
   * character {char} property is the value of figure e.g. A,?, ...
  */
-
-function Figure(){
+function Figure()
+{
     this.isEmpty = true;
     this.isHidden = true;
     this.hiddenCharacter = '*';
-    this.character='';
+    this.character = '';
 }
 
 /*
  * @return {char} The actual value of Figure Character
  */
 
-Figure.prototype.getCharacter = function(){
+Figure.prototype.getCharacter = function()
+{
     return this.character;
 };
 /*
  * @param {char|string} character This param set the Figure character value
  */
-Figure.prototype.setCharacter = function(character){
+Figure.prototype.setCharacter = function(character)
+{
     this.character = character;
     this.setState(false);
 };
@@ -35,25 +37,29 @@ Figure.prototype.setCharacter = function(character){
  * @return {boolean} The state of Figure Character is empty
  */
 
-Figure.prototype.isEmptyCell = function(){
+Figure.prototype.isEmptyCell = function()
+{
     return this.isEmpty;
 };
 /*
  * @param {bool} state This param set the Empty State
  */
-Figure.prototype.setState = function(state){
+Figure.prototype.setState = function(state)
+{
     this.isEmpty = state;
 };
 /*
  * @return {boolean} The state of Figure Character is hidden
  */
 
-Figure.prototype.showState = function(){
+Figure.prototype.showState = function()
+{
     return this.isHidden;
 };
 /*
 * @param {bool} state This param set the Hidden State
  */
-Figure.prototype.setShowState = function(state){
+Figure.prototype.setShowState = function(state)
+{
     this.isHidden = state;
 };

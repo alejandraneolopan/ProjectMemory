@@ -1,50 +1,57 @@
 /**
  * Created by SamuelSahonero on 2/23/2016.
  */
-var GUIView=function()
+var GUIView = function()
 {
-    this.myBoard=null;
+    this.myBoard = null;
 };
 
-GUIView.prototype.readPlayer=function() {
-
-    var player=new Player();
+GUIView.prototype.readPlayer = function()
+{
+    var player = new Player();
     //Get all data of html file
     return player;
 };
 
-GUIView.prototype.readBoardDimension=function() {
+GUIView.prototype.readBoardDimension = function()
+{
    /* var dimension = prompt('Enter the dimension of the board', 'i.e. 6');
     if (dimension != null) {
         return dimension;
     }*/
-    var dimensionBoard=document.getElementsByName('board_dim')[0].value;
+    var dimensionBoard = document.getElementsByName('board_dim')[0].value;
     return dimensionBoard;
-
 };
 
 
-GUIView.prototype.showBoard=function(boardToPlay)
-{   this.myBoard=boardToPlay;
+GUIView.prototype.showBoard = function(boardToPlay)
+{
+    this.myBoard = boardToPlay;
     //Second time--> Quit table-->Clear
     //First time
 
-    var cells=this.myBoard.returnCells();
-    var cols=this.myBoard.dimension;
-    var rows=this.myBoard.dimension;
-    var rowActual,colActual;
-    var table2= document.createElement('table');
+    var cells = this.myBoard.returnCells();
+    var cols = this.myBoard.dimension;
+    var rows = this.myBoard.dimension;
+    //var rowActual, colActual;
+    var table2 = document.createElement('table');
+
     table2.setAttribute('align','center');
+
     var newButton,textButton;
     var tr2,td2;
     var cellIsHidden;
-    for (var i2 = 0; i2 < rows; i2++) {
+
+    for (var i2 = 0; i2 < rows; i2++)
+    {
         tr2 = document.createElement('tr');
+
         for (var j = 0; j < cols; j++)
         {
             //Add a button
             newButton = document.createElement('button');
-            cellIsHidden=cells[i2][j].showState();
+            cellIsHidden = cells[i2][j].showState();
+
             if (cellIsHidden)
             {// Create a text node with the cell value
                 textButton = document.createTextNode(cells[i2][j].hiddenCharacter);
@@ -53,6 +60,7 @@ GUIView.prototype.showBoard=function(boardToPlay)
             {
                 textButton = document.createTextNode(cells[i2][j].character);
             }
+
             newButton.appendChild(textButton);
             newButton.setAttribute('row',i2);
             newButton.setAttribute('col',j);
@@ -62,8 +70,8 @@ GUIView.prototype.showBoard=function(boardToPlay)
             td2.appendChild(newButton);
             tr2.appendChild(td2);
         }
-        table2.appendChild(tr2);
 
+        table2.appendChild(tr2);
     }
 
     document.body.appendChild(table2);
@@ -71,65 +79,66 @@ GUIView.prototype.showBoard=function(boardToPlay)
 };
 
 
-GUIView.prototype.displayOneCell=function(e){
-
-        var cells=playGame.myBoard.returnCells();
-        var rowActual=e.target.getAttribute('row');
-        var colActual=e.target.getAttribute('col');
+GUIView.prototype.displayOneCell=function(e)
+{
+        //var cells = playGame.myBoard.returnCells();
+        var rowActual = e.target.getAttribute('row');
+        var colActual = e.target.getAttribute('col');
         var figure = playGame.myBoard.returnOneCell(rowActual, colActual);
-        e.target.textContent=figure.getCharacter();
+
+        e.target.textContent = figure.getCharacter();
         playGame.numberOfClicks++;
+
         switch (playGame.numberOfClicks)
         {
             case 1:
-                playGame.figure1=figure;
-                playGame.row1=rowActual;
-                playGame.col1=colActual;
+                playGame.figure1 = figure;
+                playGame.row1 = rowActual;
+                playGame.col1 = colActual;
                 break;
+
             case 2:
-                playGame.figure2=figure;
-                playGame.row2=rowActual;
-                playGame.col2=colActual;
+                playGame.figure2 = figure;
+                playGame.row2 = rowActual;
+                playGame.col2 = colActual;
                 playGame.compareCells();
                 break;
+
             default:
-                var char1=playGame.figure1.getCharacter();
-                var char2=playGame.figure2.getCharacter();
-                if (char1 != char2) {
+                var char1 = playGame.figure1.getCharacter();
+                var char2 = playGame.figure2.getCharacter();
+
+                if (char1 != char2)
+                {
                     playGame.viewByGUI.hideSelectedButtons();
-
-
                     //jQuery('table').find('button[row="1"][col="1"]')
                 }
-                playGame.figure1=figure;
-                playGame.row1=rowActual;
-                playGame.col1=colActual;
-                playGame.numberOfClicks=1;
-                break;
 
+                playGame.figure1 = figure;
+                playGame.row1 = rowActual;
+                playGame.col1 = colActual;
+                playGame.numberOfClicks = 1;
                 break;
         }
-
 };
 /*
 * @param string msg This is the message for display into a textarea
 */
-GUIView.prototype.printMessage=function()
+GUIView.prototype.printMessage = function()
 {
     var textmessage = document.getElementsByName('state_message')[0];
-    var msg='';
+    var msg = '';
 
-    for (var i = 0; i <arguments.length ; i++)
+    for (var i = 0; i <arguments.length; i++)
     {
-        msg=arguments[i]+'\\r\\n';
+        msg = arguments[i]+'\\r\\n';
     }
 
-    textmessage.value=msg;
-
+    textmessage.value = msg;
 };
-GUIView.prototype.hideSelectedButtons=function()
-{
 
+GUIView.prototype.hideSelectedButtons = function()
+{
     playGame.myBoard.hiddenOneCell(playGame.row1, playGame.col1);
     playGame.myBoard.hiddenOneCell(playGame.row2, playGame.col2);
     var myButtonPath = 'button[row="'+ playGame.row1+'"][col="'+ playGame.col1 +'"]';
@@ -139,5 +148,4 @@ GUIView.prototype.hideSelectedButtons=function()
     myButtonPath = 'button[row="'+ playGame.row2+'"][col="'+ playGame.col2 +'"]';
     myButtonObject = jQuery('table').find(myButtonPath);
     myButtonObject.text(playGame.figure2.hiddenCharacter);
-
 };

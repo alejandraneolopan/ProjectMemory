@@ -27,28 +27,32 @@
  * @author Team QA
  */
 
-var Game=function()
+var Game = function()
 {
-    this.player=new Player();
+    this.player = new Player();
     this.myBoard = new Board();
     //this.viewByConsole = new ConsoleView();
     this.viewByGUI = new GUIView();
-    this.attemps=0;
-    this.numberOfClicks=0;
-    this.row1=0;
-    this.row2=0;
-    this.col1=0;
-    this.col2=0;
-    this.figure1=new Figure();
-    this.figure2=new Figure();
+    this.attemps = 0;
+    this.numberOfClicks = 0;
+    this.row1 = 0;
+    this.row2 = 0;
+    this.col1 = 0;
+    this.col2 = 0;
+    this.figure1 = new Figure();
+    this.figure2 = new Figure();
     this.fails = 0;
     this.wins = 0;
 };
-Board.prototype.showBoardConsole = function(){
+
+Board.prototype.showBoardConsole = function()
+{
 
     this.viewByConsole.ShowBoard();
 };
-Board.prototype.showBoardGUI = function(){
+
+Board.prototype.showBoardGUI = function()
+{
 
     this.viewByGUI.ShowBoard();
 };
@@ -56,37 +60,37 @@ Board.prototype.showBoardGUI = function(){
 *The button activate this
 *
  */
-Game.prototype.startGame=function(){
+Game.prototype.startGame = function()
+{
     //Setting a new player
    // this.player=this.viewByGUI.readPlayer();
     //Inicialize Board
-    var dimension=playGame.viewByGUI.readBoardDimension();
+    var dimension = playGame.viewByGUI.readBoardDimension();
     //var dimension=3;
     playGame.myBoard.setDimension(dimension);
-    playGame.attemps= Math.floor((playGame.myBoard.dimension*playGame.myBoard.dimension)/2);
+    playGame.attemps = Math.floor( (playGame.myBoard.dimension*playGame.myBoard.dimension) / 2 );
     playGame.myBoard.fillCharacter();
     playGame.viewByGUI.showBoard(playGame.myBoard);
-
-
-
 };
-Game.prototype.verifyWinner=function()
-{
 
-    if (this.wins === this.attemps){
+Game.prototype.verifyWinner = function()
+{
+    if (this.wins === this.attemps)
+    {
         this.viewByGUI.printMessage('Congratulations YOU WIN!!!','Your Total Score is: ' + this.player.getTotalScore());
     }
 
     if (this.fails === this.dimension)
     {
         this.viewByGUI.printMessage('GAME OVER!','Your Total Score is: ' + this.player.getTotalScore());
-
     }
-
 };
-Game.prototype.compareCells=function(){
-    var char1=this.figure1.getCharacter();
-    var char2=this.figure2.getCharacter();
+
+Game.prototype.compareCells = function()
+{
+    var char1 = this.figure1.getCharacter();
+    var char2 = this.figure2.getCharacter();
+
     if (char1 === char2)
     {//Aciertos
         this.wins++;
@@ -99,12 +103,13 @@ Game.prototype.compareCells=function(){
         this.viewByGUI.printMessage('Sorry! Try again');
         this.fails++;
     }
-
 };
-var playGame;
-window.onload=function() {
-   playGame = new Game();
-    var buttonSave=document.getElementsByName('save_btn')[0];
-    buttonSave.addEventListener('click',playGame.startGame);
 
+var playGame;
+
+window.onload = function()
+{
+    playGame = new Game();
+    var buttonSave = document.getElementsByName('save_btn')[0];
+    buttonSave.addEventListener('click',playGame.startGame);
 };
