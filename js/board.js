@@ -56,7 +56,6 @@ Board.prototype.fillCharacter = function()
     if( (this.dimension % 2) === 1 )
     {
         this.fillCharacterOneRanCell('~');
-
     }
 
     var numberOfPairs = Math.floor( (this.dimension*this.dimension) / 2 );
@@ -101,6 +100,3 @@ Board.prototype.fillCharacterOneRanCell = function(charac)
         this.cells[x][y].setShowState(false);
     }
 };
-
-
-
