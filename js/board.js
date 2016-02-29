@@ -1,26 +1,41 @@
-/**
- *@class Board - contains the matrix
- *
- *
- *  Author: Alejandra & Ana 6 Samuel
+/*
+ * Author:  Alejandra & Ana & Samuel
+ *  @class Board: Board Model
+ *  dimension {int} property that indicates the dimension of the Board
+ *  cells {array} property that is a collection of Figures
+ *  @const CHARACTER_CELL_IN_BLANK {char} property that display a Happy face :)
  */
+
 var Board = function()
 {
     this.dimension = 0;
     this.cells = [];
     this.CHARACTER_CELL_IN_BLANK='\u263a'
 };
+/*
+ * => returnCells Return the Board
+ * @return {Board} Returns the Board
+ */
 
 Board.prototype.returnCells = function()
 {
     return this.cells;
 };
+/*
+ * @param {int} row This param choose the row
+ * @param {int} column This param choose the column
+ * @return {Figure} The Figure is displayed
+ */
 
 Board.prototype.returnOneCell = function(row, column)
 {
     this.cells[row][column].setShowState(false);
     return this.cells[row][column];
 };
+/* => hiddenOneCell Hides a cell
+ * @param {int} row this param choose the row
+ * @param {int} column this param choose the column
+ */
 
 Board.prototype.hiddenOneCell = function(row, column)
 {
@@ -30,6 +45,7 @@ Board.prototype.hiddenOneCell = function(row, column)
 /*
  * params{int} number Define the matrix dimension nxn
  */
+
 Board.prototype.setDimension = function(number)
 {
     //Initialize matrix
@@ -45,10 +61,10 @@ Board.prototype.setDimension = function(number)
         }
     }
 };
-
 /*
  * fillCharacter => fill the matrix randomly
  */
+
 Board.prototype.fillCharacter = function()
 {
     var text='',letter;
@@ -77,6 +93,10 @@ Board.prototype.fillCharacter = function()
         this.fillCharacterOneRanCell(charac);
     }
 };
+/*
+* => Fill a cell with a char in a ramdom position
+* @param {char} charac This params sets a char
+*/
 
 Board.prototype.fillCharacterOneRanCell = function(charac)
 {
