@@ -1,29 +1,27 @@
 /**
  * Created by SamuelSahonero on 2/23/2016.
+ * @class GUIView: Manage the components in the HTML view
+ *  myBoard{Board} Board object for manage its visualization
  */
 var GUIView = function()
 {
     this.myBoard = null;
 };
-
+/*
+ * @return {Player} Read from HTML view the Player data
+ */
 GUIView.prototype.readPlayer = function()
 {
     var player = new Player();
-    //Get all data of html file
     player.setName($('input#name').val());
     player.setNickName($('input#nick').val());
     player.setAge($('input#age').val());
     player.setId($('input#id').val());
     return player;
 };
-
 /*
-GUIView.prototype.greetPlayer = function () {
-    
-}*/
-
-
-
+ * @return {int} Read from HTML Board dimension and return this
+ */
 GUIView.prototype.readBoardDimension = function()
 {
    /* var dimension = prompt('Enter the dimension of the board', 'i.e. 6');
@@ -34,24 +32,20 @@ GUIView.prototype.readBoardDimension = function()
     var dimensionBoard = $('input#dim').val();
     return dimensionBoard;
 };
-
-
-
+/*
+ * @param {Board} boardToPlay This param set the Board to display in the HTML view
+ */
 GUIView.prototype.showBoard = function(boardToPlay)
 {
     this.myBoard = boardToPlay;
-    //Second time--> Quit table-->Clear
-    //First time
-
     var cells = this.myBoard.returnCells();
     var cols = this.myBoard.dimension;
     var rows = this.myBoard.dimension;
     //var rowActual, colActual;
     //var table2 = document.createElement('table');
     //table2.setAttribute('align','center');
-    var table2 =$('<table></table>');
+    var table2 = $('<table></table>');
     table2.attr('align','center');
-
 
     var newButton,textButton;
     var tr2,td2;
@@ -60,24 +54,24 @@ GUIView.prototype.showBoard = function(boardToPlay)
     for (var i = 0; i < rows; i++)
     {
         //tr2 = document.createElement('tr');
-        tr2=$('<tr></tr>');
+        tr2 = $('<tr></tr>');
 
         for (var j = 0; j < cols; j++)
         {
             //Add a button
             //newButton = document.createElement('button');
-            newButton=$('<button></button>');
+            newButton = $('<button></button>');
             cellIsHidden = cells[i][j].showState();
 
             if (cellIsHidden)
             {// Create a text node with the cell value
                 //textButton = document.createTextNode(cells[i][j].hiddenCharacter);
-                textButton=cells[i][j].hiddenCharacter;
+                textButton = cells[i][j].hiddenCharacter;
             }
             else
             {
                 //textButton = document.createTextNode(cells[i][j].character);
-                textButton=cells[i][j].character;
+                textButton = cells[i][j].character;
             }
 
             /*newButton.appendChild(textButton);
@@ -89,7 +83,7 @@ GUIView.prototype.showBoard = function(boardToPlay)
             newButton.attr('col',j);
             newButton.attr('class','buttonGame');
             //If it isn't the wild card cell
-            var charToFill=cells[i][j].character;
+            var charToFill = cells[i][j].character;
             if (charToFill != this.myBoard.CHARACTER_CELL_IN_BLANK) {
                 //newButton.addEventListener('click', this.displayOneCell);
                 newButton.on('click', this.displayOneCell);
@@ -98,7 +92,7 @@ GUIView.prototype.showBoard = function(boardToPlay)
             //td2 = document.createElement('td');
             //td2.appendChild(newButton);
             //tr2.appendChild(td2);
-            td2=$('<td></td>');
+            td2 = $('<td></td>');
             td2.append(newButton);
             tr2.append(td2);
 
@@ -112,8 +106,9 @@ GUIView.prototype.showBoard = function(boardToPlay)
     $('body').append(table2);
 
 };
-
-
+/*
+ * @param {Event} eventClick This param is executed as callback from a button object when a Cell button is pressed
+ */
 GUIView.prototype.displayOneCell=function(eventClick)
 {
 
@@ -165,19 +160,22 @@ GUIView.prototype.displayOneCell=function(eventClick)
         }
 };
 /*
-* @param string msg This is the message for display into a textarea
+* @param {arguments} By arguments, the text area show the message in arguments[0]
 */
 GUIView.prototype.printMessage = function()
 {
     var textMessage = $('textarea');
     textMessage.text(arguments[0]);
 };
-
+/*
+ * Hide two cells which are differents
+ * @param {}
+ */
 GUIView.prototype.hideSelectedButtons = function()
 {
     //First Cell
     playGame.myBoard.hiddenOneCell(playGame.row1, playGame.col1);
-    var myButtonPath = 'button[row="'+ playGame.row1+'"][col="'+ playGame.col1 +'"]';
+    var myButtonPath = 'button[row="' + playGame.row1 + '"][col="' + playGame.col1 + '"]';
     var myButtonObject = jQuery('table').find(myButtonPath);
     myButtonObject.text(playGame.figure1.hiddenCharacter);
     //addListener
@@ -186,7 +184,7 @@ GUIView.prototype.hideSelectedButtons = function()
 
     //Second Cell
     playGame.myBoard.hiddenOneCell(playGame.row2, playGame.col2);
-    myButtonPath = 'button[row="'+ playGame.row2+'"][col="'+ playGame.col2 +'"]';
+    myButtonPath = 'button[row="' + playGame.row2 + '"][col="' + playGame.col2 +'"]';
     myButtonObject = jQuery('table').find(myButtonPath);
     myButtonObject.text(playGame.figure2.hiddenCharacter);
     //addListener
