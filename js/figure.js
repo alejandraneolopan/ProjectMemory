@@ -1,13 +1,13 @@
 /**
  * Created by SamuelSahonero on 2/4/2016.
- */
-/*  @class Figure: Save the content of cells
+ *
+ *  @class Figure: Save the content of cells
  *  isEmpty {boolean} property that indicates if the value is empty, this state
  *       changes when the character property is set.
-  * isHidden {boolean} property that indicates the first time the character value
-   *     can't displayed.
-  * hiddenCharacter {char} property is the character displayed when the state isHidden is true
-  * character {char} property is the value of figure e.g. A,?, ...
+ * isHidden {boolean} property that indicates the first time the character value
+ *     can't displayed.
+ * hiddenCharacter {char} property is the character displayed when the state isHidden is true
+ * character {char} property is the value of figure e.g. A,?, ...
  */
 function Figure()
 {
