@@ -64,7 +64,7 @@ Game.prototype.startGame = function()
 {
     //Setting a new player
     playGame.player=playGame.viewByGUI.readPlayer();
-    playGame.viewByGUI.printMessage('Bienvenido ' + playGame.player.getName() + ' !')
+    playGame.viewByGUI.printMessage('Welcome ' + playGame.player.getName() + ' !')
     //Inicialize Board
     var dimension = playGame.viewByGUI.readBoardDimension();
     //var dimension=3;
