@@ -1,8 +1,6 @@
 /*
- * Author:  Alejandra & Ana & Samuel
- * @Class Game : Creates and starts a new game.
- * @method showBoardGUI : Shows the game board GUI.
- *
+* Author:  Alejandra & Ana & Samuel
+* @Class Game : Creates and starts a new game.
  */
 var Game = function()
 {
@@ -143,3 +141,6 @@ Game.prototype.playGameByConsole=function(){
         }
     }
 };
+/*
+ * @method showBoardGUI : Shows the game board GUI.
+ */

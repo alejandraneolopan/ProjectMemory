@@ -178,9 +178,8 @@ GUIView.prototype.hideSelectedButtons = function()
  */
 GUIView.prototype.readGameType=function()
 {
-    //Console or GUI??
-    $('select')
-    return 'GUI';
+    var type = $("#type").val();
+    return type;
 };
 /*
  * Hide the form Settings
