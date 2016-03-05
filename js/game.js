@@ -44,9 +44,6 @@ Game.prototype.startGame = function()
     }
     else //Console - View
     {
-         //Open DevTools
-        // var openDevToolEvent=jQuery.Event( 'keydown', { keyCode: 123, which: 123 });
-       // $('body').trigger(openDevToolEvent);
         alert('Press F12 key');
         playGame.viewByConsole = new ConsoleView(playGame.myBoard);
         playGame.viewByGUI.hideSettings();
@@ -64,14 +61,14 @@ Game.prototype.verifyWinner = function()
 { var msg='';
     if (this.wins === this.numberOfPairs)
     {
-        msg='Congratulations YOU WIN!!!\\\nYour Total Score is:' + this.player.getTotalScore();
+        msg='Congratulations ' + playGame.player.getName() +' YOU WIN!!!\nYour Total Score is:' + this.player.getTotalScore();
         this.viewByGUI.printMessage(msg);
 
     }
 
     if (this.fails === this.dimension)
     {
-        msg='GAME OVER!\\\nYour Total Score is: ' + this.player.getTotalScore();
+        msg='GAME OVER' + playGame.player.getNickName() +'! \n Your Total Score is: ' + this.player.getTotalScore();
         this.viewByGUI.printMessage(msg);
         if (this.gameType == 'GUI') {
             this.viewByGUI.hideBoard();
@@ -93,13 +90,13 @@ Game.prototype.compareCells = function()
         this.wins++;
         this.player.setCurrentScore(50);
         this.player.setTotalScore(50);
-        this.viewByGUI.printMessage('Congrats! you win 50 points. You miss ' + (this.numberOfPairs - this.wins) + ' pairs');
+        this.viewByGUI.printMessage('Congrats ' + playGame.player.getNickName() + '! you win 50 points. You miss ' + (this.numberOfPairs - this.wins) + ' pairs');
 
     }
     else
     {
         this.fails++;
-        this.viewByGUI.printMessage('Sorry! Try again. You have ' + (this.dimension - this.fails) + ' attempts more for fails.');
+        this.viewByGUI.printMessage('Sorry ' + playGame.player.getNickName() + ' ! Try again. You have ' + (this.dimension - this.fails) + ' attempts more for fails.');
 
     }
     this.verifyWinner();
