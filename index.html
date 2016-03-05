@@ -3,7 +3,8 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Memory Game</title>
-<style>
+
+    <style type="text/css">
     .h1{
         font-family: 'Open Sans Condensed', sans-serif;
         font-size: 35pt;
@@ -11,9 +12,6 @@
         background-color:#232323;
         text-shadow:0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #49ff18, 0 0 30px #49ff18, 0 0 40px #49ff18, 0 0 55px #49ff18, 0 0 75px #49ff18
     }
-</style>
-
-    <style type="text/css">
         input{
             padding: 9px;
             border: solid 1px #d5d5d5;
@@ -22,6 +20,14 @@
             width: 500px;
             background: #FFFFFF;
         }
+    .inputborder{
+        padding: 9px;
+        border: solid 1px #d5d5d5;
+        outline: 0;
+        font: 13px Verdana, Tahoma, sans-serif;
+        width: 500px;
+        background: #FFFFFF;
+    }
 
         p{
             padding: 9px;
@@ -68,15 +74,15 @@
     <div>
         <p>Player</p>
         <label for="name">Player Name:</label>
-        <input type="text" id="name" name="player_name" />
+        <input type="text" id="name" name="player_name" maxlength="20"/>
     </div>
     <div>
         <label for="nick">Nick Name:</label>
-        <input type="text" id="nick" name="player_nick" />
+        <input type="text" id="nick" name="player_nick" maxlength="20"/>
     </div>
     <div>
         <label for="age">Age:</label>
-        <input type="text" id="age" name="player_age" />
+        <input type="number" id="age" name="player_age" />
     </div>
     <div>
         <label for="id">ID:</label>
@@ -85,8 +91,17 @@
         <p>Board</p>
     <div>
         <label for="dim">Dimension:</label>
-        <input type="text" id="dim" name="board_dim" value="3"/>
+        <input type="number" id="dim" name="board_dim" value="3"  maxlength="1" onkeyup="if (/[2-7]{1}/.test(this.value) == false) this.value = this.value.replace(/./,'')"/>
     </div>
+    <p>Game view</p>
+    <div>
+        <label for="dim">Type:</label>
+        <select name="typeGame" class="inputborder">
+            <option name="GUIView" selected>GUI</option>
+            <option name="consoleView">Console</option>
+        </select>
+    </div>
+
     <div class="button"><!--playGame.startGame()-->
         <button class="StartButton" type="button" onclick="" name="save_btn">START GAME</button>
     </div>
@@ -94,7 +109,8 @@
 
 <div align="center">
     <label for="msg">State Message:</label>
-    <textarea class="h1" id="msg" name="state_message"></textarea>
+
+    <textarea class="h1" id="msg" name="state_message" style="margin: 2px; width: 602px; height: 111px;"></textarea>
 </div>
 </body>
 <script src="js/jquery-1.12.1.js"></script>
@@ -103,5 +119,5 @@
 <script src="js/player.js"></script>
 <script src="js/game.js"></script>
 <script src="js/GUIView.js"></script>
-<script src="js/game.js"></script>
+<script src="js/main.js"></script>
 </html>

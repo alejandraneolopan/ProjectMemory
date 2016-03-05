@@ -50,16 +50,26 @@ Game.prototype.startGame = function()
 {
     //Setting a new player
     playGame.player = playGame.viewByGUI.readPlayer();
-    playGame.viewByGUI.printMessage('Welcome ' + playGame.player.getName() + ' !')
     //Inicialize Board
-    var dimension = playGame.viewByGUI.readBoardDimension();
-    //var dimension=3;
-    playGame.myBoard.setDimension(dimension);
-    playGame.attemps = Math.floor( (playGame.myBoard.dimension*playGame.myBoard.dimension) / 2 );
+    playGame.dimension = parseInt(playGame.viewByGUI.readBoardDimension());
+    playGame.myBoard.setDimension(playGame.dimension);
     playGame.myBoard.fillCharacter();
+//Setting the at
+    playGame.attemps = Math.floor( (playGame.myBoard.dimension*playGame.myBoard.dimension) / 2 );
+    //Game Type
+    var gameType=playGame.viewByGUI.readGameType();
+    if (gameType == 'GUI')
+    {
+        playGame.viewByGUI.printMessage('Welcome ' + playGame.player.getName() + ' !')
+    }
+
+
     playGame.viewByGUI.showBoard(playGame.myBoard);
 
-    $('form').find('button').off('click',playGame.startGame)
+
+    $('form').find('button').off('click',playGame.startGame);
+    //$('form').css({"display":"none"});
+    $('form').hide();
     //var button = $
 };
 /*
@@ -69,13 +79,25 @@ Game.prototype.verifyWinner = function()
 {
     if (this.wins === this.attemps)
     {
-        this.viewByGUI.printMessage('Congratulations YOU WIN!!!\\\nYour Total Score is:\\\n ' + this.player.getTotalScore());
+        this.viewByGUI.printMessage('Congratulations YOU WIN!!!\\\nYour Total Score is:' + this.player.getTotalScore());
+        var restart = function(){location.reload();};
+        var restartButton = $('<button class="StartButton">RESTART</button>');
+        restartButton.on('click',restart);
+        $('body').append(restartButton);
+        //Hide table
+
     }
 
     if (this.fails === this.dimension)
     {
-        this.viewByGUI.printMessage('GAME OVER!','Your Total Score is: ' + this.player.getTotalScore());
+        this.viewByGUI.printMessage('GAME OVER!\\\nYour Total Score is: ' + this.player.getTotalScore());
+        var restart = function(){location.reload();};
+        var restartButton = $('<center><button class="StartButton">RESTART</button></center>');
+        restartButton.on('click',restart);
+        $('body').append(restartButton);
+        $('table').hide();
     }
+
 };
 /*
  * @method compareCells : Compares the characters of two cells
@@ -90,27 +112,14 @@ Game.prototype.compareCells = function()
         this.wins++;
         this.player.setCurrentScore(50);
         this.player.setTotalScore(50);
-        this.viewByGUI.printMessage('Congrats! you win 50 points');
-        this.verifyWinner();
+        this.viewByGUI.printMessage('Congrats! you win 50 points. You miss ' + (this.attemps - this.wins) + ' pairs');
+
     }
     else
     {
-        this.viewByGUI.printMessage('Sorry! \\\n Try again');
         this.fails++;
+        this.viewByGUI.printMessage('Sorry! Try again. You have ' + (this.dimension - this.fails) + ' attempts more for fails.');
+
     }
-};
-/*
- * @var playGame : A game class
- */
-var playGame;
-/*
- * @method : Creates a new game and starts the game
- */
-window.onload = function()
-{
-    playGame = new Game();
-    //var buttonSave = document.getElementsByName('save_btn')[0];
-    //buttonSave.addEventListener('click',playGame.startGame);
-    $('form').find('button').on('click',playGame.startGame);
-    //$('form').find('button').off('click',playGame.startGame)
+    this.verifyWinner();
 };

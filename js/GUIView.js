@@ -131,7 +131,6 @@ GUIView.prototype.displayOneCell=function(eventClick)
                 playGame.figure1 = figure;
                 playGame.row1 = rowActual;
                 playGame.col1 = colActual;
-
                 break;
 
             case 2:
@@ -139,7 +138,6 @@ GUIView.prototype.displayOneCell=function(eventClick)
                 playGame.row2 = rowActual;
                 playGame.col2 = colActual;
                 playGame.compareCells();
-
                 break;
 
             default:
@@ -191,3 +189,8 @@ GUIView.prototype.hideSelectedButtons = function()
     myButtonObject.on('click', playGame.viewByGUI.displayOneCell);
 
 };
+GUIView.prototype.readGameType=function()
+{
+    //Console or GUI??
+    $('select')
+    return 'GUI';};
