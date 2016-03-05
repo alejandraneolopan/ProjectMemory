@@ -16,7 +16,7 @@ GUIView.prototype.readPlayer = function()
     player.setName($('input#name').val());
     player.setNickName($('input#nick').val());
     player.setAge($('input#age').val());
-    player.setId($('input#id').val());
+
     return player;
 };
 /*

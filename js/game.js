@@ -61,14 +61,14 @@ Game.prototype.verifyWinner = function()
 { var msg='';
     if (this.wins === this.numberOfPairs)
     {
-        msg='Congratulations ' + playGame.player.getName() +' YOU WIN!!!\nYour Total Score is:' + this.player.getTotalScore();
+        msg='Congratulations ' + playGame.player.getNickName() +' YOU WIN!!!\nYour Total Score is:' + this.player.getTotalScore();
         this.viewByGUI.printMessage(msg);
 
     }
 
     if (this.fails === this.dimension)
     {
-        msg='GAME OVER' + playGame.player.getNickName() +'! \n Your Total Score is: ' + this.player.getTotalScore();
+        msg='GAME OVER ' + playGame.player.getNickName() +'! \n Your Total Score is: ' + this.player.getTotalScore();
         this.viewByGUI.printMessage(msg);
         if (this.gameType == 'GUI') {
             this.viewByGUI.hideBoard();
