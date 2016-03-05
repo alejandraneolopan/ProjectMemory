@@ -1,8 +1,5 @@
-/**
- * Created by alejandraneolopan on 2/4/2016.
- */
 /*
-* Author:  Alejandra & Ana & Samuel
+*  Author:  Alejandra & Ana & Samuel
 *  @class Player: Player Model
 *  id {string} property that indicates Player code
 *  name {string} property that indicates the Player Name

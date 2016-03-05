@@ -1,14 +1,8 @@
-/**
+/*
+ * Author:  Alejandra & Ana & Samuel
  * @Class Game : Creates and starts a new game.
- * @author Team QA
- *
- * @method compareCells : Compares the characters of two cells
- * @method verifyWinner : Verify if the player has won or lost.
- * @method compareCells : Compares the characters of two cells
- * @method verifyWinner : Verify if the player has won or lost.
- * @method startGame : Creates a new game
  * @method showBoardGUI : Shows the game board GUI.
- * @method showBoardConsole : Shows the game board on the console
+ *
  */
 var Game = function()
 {
@@ -52,8 +46,8 @@ Game.prototype.startGame = function()
     }
     else //Console - View
     {
-        //Open DevTools
-        //var openDevToolEvent=jQuery.Event( 'keydown', { keyCode: 123, which: 123 });
+         //Open DevTools
+        // var openDevToolEvent=jQuery.Event( 'keydown', { keyCode: 123, which: 123 });
        // $('body').trigger(openDevToolEvent);
         alert('Press F12 key');
         playGame.viewByConsole = new ConsoleView(playGame.myBoard);
@@ -112,7 +106,9 @@ Game.prototype.compareCells = function()
     }
     this.verifyWinner();
 };
-
+/*
+ * @method showBoardConsole : Shows the game board on the console
+ */
 Game.prototype.playGameByConsole=function(){
 
     while ( this.fails < this.myBoard.dimension && this.wins < this.numberOfPairs)

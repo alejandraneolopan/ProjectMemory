@@ -1,7 +1,5 @@
-/**
- * Created by alejandraneolopan on 3/5/2016.
- */
 /*
+ * Author:  Alejandra & Ana & Samuel
  * @var playGame : Global variable
  */
 var playGame;
@@ -11,8 +9,7 @@ var playGame;
 window.onload = function()
 {
     playGame = new Game();
-    //var buttonSave = document.getElementsByName('save_btn')[0];
-    //buttonSave.addEventListener('click',playGame.startGame);
+
     $('form').find('button').on('click',playGame.startGame);
-    //$('form').find('button').off('click',playGame.startGame)
+
 };

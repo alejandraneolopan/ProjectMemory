@@ -1,7 +1,7 @@
-/**
- * Created by SamuelSahonero on 2/23/2016.
+/*
+ * Author:  Alejandra & Ana & Samuel
  * @class GUIView: Manage the components in the HTML view
- *  myBoard{Board} Board object for manage its visualization
+ * myBoard{Board} Board object for manage its visualization
  */
 var GUIView = function()
 {
@@ -24,11 +24,6 @@ GUIView.prototype.readPlayer = function()
  */
 GUIView.prototype.readBoardDimension = function()
 {
-   /* var dimension = prompt('Enter the dimension of the board', 'i.e. 6');
-    if (dimension != null) {
-        return dimension;
-    }*/
-    //var dimensionBoard = document.getElementsByName('board_dim')[0].value;
     var dimensionBoard = $('input#dim').val();
     return dimensionBoard;
 };
@@ -41,9 +36,6 @@ GUIView.prototype.showBoard = function(boardToPlay)
     var cells = this.myBoard.returnCells();
     var cols = this.myBoard.dimension;
     var rows = this.myBoard.dimension;
-    //var rowActual, colActual;
-    //var table2 = document.createElement('table');
-    //table2.setAttribute('align','center');
     var table2 = $('<table></table>');
     table2.attr('align','center');
 
@@ -53,31 +45,28 @@ GUIView.prototype.showBoard = function(boardToPlay)
 
     for (var i = 0; i < rows; i++)
     {
-        //tr2 = document.createElement('tr');
+
         tr2 = $('<tr></tr>');
 
         for (var j = 0; j < cols; j++)
         {
-            //Add a button
-            //newButton = document.createElement('button');
+
+
             newButton = $('<button></button>');
             cellIsHidden = cells[i][j].showState();
 
             if (cellIsHidden)
-            {// Create a text node with the cell value
-                //textButton = document.createTextNode(cells[i][j].hiddenCharacter);
+            {
+
                 textButton = cells[i][j].hiddenCharacter;
             }
             else
             {
-                //textButton = document.createTextNode(cells[i][j].character);
+
                 textButton = cells[i][j].character;
             }
 
-            /*newButton.appendChild(textButton);
-            newButton.setAttribute('row',i);
-            newButton.setAttribute('col',j);
-            newButton.setAttribute('class','buttonGame');*/
+
             newButton.text(textButton);
             newButton.attr('row',i);
             newButton.attr('col',j);
@@ -85,24 +74,21 @@ GUIView.prototype.showBoard = function(boardToPlay)
             //If it isn't the wild card cell
             var charToFill = cells[i][j].character;
             if (charToFill != this.myBoard.CHARACTER_CELL_IN_BLANK) {
-                //newButton.addEventListener('click', this.displayOneCell);
+
                 newButton.on('click', this.displayOneCell);
             }
-            //Put on td
-            //td2 = document.createElement('td');
-            //td2.appendChild(newButton);
-            //tr2.appendChild(td2);
+
             td2 = $('<td></td>');
             td2.append(newButton);
             tr2.append(td2);
 
         }
 
-        //table2.appendChild(tr2);
+
         table2.append(tr2);
     }
 
-    //document.body.appendChild(table2);
+
     $('body').append(table2);
 
 };
@@ -111,7 +97,6 @@ GUIView.prototype.showBoard = function(boardToPlay)
  */
 GUIView.prototype.displayOneCell=function(eventClick)
 {
-
         var rowActual = eventClick.currentTarget.getAttribute('row');
         var colActual = eventClick.currentTarget.getAttribute('col');
         var figure = playGame.myBoard.returnOneCell(rowActual, colActual);
@@ -176,9 +161,7 @@ GUIView.prototype.hideSelectedButtons = function()
     var myButtonPath = 'button[row="' + playGame.row1 + '"][col="' + playGame.col1 + '"]';
     var myButtonObject = jQuery('table').find(myButtonPath);
     myButtonObject.text(playGame.figure1.hiddenCharacter);
-    //addListener
     myButtonObject.on('click', playGame.viewByGUI.displayOneCell);
-
 
     //Second Cell
     playGame.myBoard.hiddenOneCell(playGame.row2, playGame.col2);
@@ -189,24 +172,32 @@ GUIView.prototype.hideSelectedButtons = function()
     myButtonObject.on('click', playGame.viewByGUI.displayOneCell);
 
 };
+/*
+ * Reads the Game type
+ * @param {}
+ */
 GUIView.prototype.readGameType=function()
 {
     //Console or GUI??
     $('select')
-    return 'Console';
+    return 'GUI';
 };
-
+/*
+ * Hide the form Settings
+ * @param {}
+ */
 GUIView.prototype.hideSettings=function()
 {
     $('form').find('button').off('click', playGame.startGame);
-//$('form').css({"display":"none"});
     $('form').hide();
     var restart = function(){location.reload();};
     var restartButton = $('<center><button class="StartButton">RESTART</button></center>');
     restartButton.on('click',restart);
     $('body').append(restartButton);
-
-
 };
+/*
+ * Hide the Board
+ * @param {}
+ */
 GUIView.prototype.hideBoard=function()
 {$('table').hide();}

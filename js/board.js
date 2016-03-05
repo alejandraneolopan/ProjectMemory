@@ -1,5 +1,5 @@
 /*
- * Author:  Alejandra & Ana & Samuel
+ *  Author:  Alejandra & Ana & Samuel
  *  @class Board: Board Model
  *  dimension {int} property that indicates the dimension of the Board
  *  cells {array} property that is a collection of Figures
