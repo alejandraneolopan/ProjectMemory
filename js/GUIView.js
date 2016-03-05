@@ -15,7 +15,17 @@ GUIView.prototype.readPlayer = function()
     var player = new Player();
     player.setName($('input#name').val());
     player.setNickName($('input#nick').val());
-    player.setAge($('input#age').val());
+    //player.setAge($('input#age').val());
+
+    var age =$('input#age').val();
+
+    if ( !( age >= 1 && age <= 100 ) ){
+
+        alert("The age must be a number between 1 and 100");
+        return false;
+    }
+
+    player.setAge(age);
 
     return player;
 };
