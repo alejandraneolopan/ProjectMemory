@@ -193,4 +193,20 @@ GUIView.prototype.readGameType=function()
 {
     //Console or GUI??
     $('select')
-    return 'GUI';};
+    return 'Console';
+};
+
+GUIView.prototype.hideSettings=function()
+{
+    $('form').find('button').off('click', playGame.startGame);
+//$('form').css({"display":"none"});
+    $('form').hide();
+    var restart = function(){location.reload();};
+    var restartButton = $('<center><button class="StartButton">RESTART</button></center>');
+    restartButton.on('click',restart);
+    $('body').append(restartButton);
+
+
+};
+GUIView.prototype.hideBoard=function()
+{$('table').hide();}

@@ -14,9 +14,9 @@ var Game = function()
 {
     this.player = new Player();
     this.myBoard = new Board();
-    //this.viewByConsole = new ConsoleView();
+    this.viewByConsole = null;
     this.viewByGUI = new GUIView();
-    this.attemps = 0;
+    this.numberOfPairs = 0;
     this.numberOfClicks = 0;
     this.row1 = 0;
     this.row2 = 0;
@@ -26,23 +26,9 @@ var Game = function()
     this.figure2 = new Figure();
     this.fails = 0;
     this.wins = 0;
+    this.gameType='GUI';
 };
-/*
- * @method showBoardConsole : Shows the game board on the console
- */
-Board.prototype.showBoardConsole = function()
-{
 
-    this.viewByConsole.ShowBoard();
-};
-/*
- * @method showBoardGUI : Shows the game board GUI.
- */
-Board.prototype.showBoardGUI = function()
-{
-
-    this.viewByGUI.ShowBoard();
-};
 /*
 * @method startGame : Creates a new game
 */
@@ -54,48 +40,51 @@ Game.prototype.startGame = function()
     playGame.dimension = parseInt(playGame.viewByGUI.readBoardDimension());
     playGame.myBoard.setDimension(playGame.dimension);
     playGame.myBoard.fillCharacter();
-//Setting the at
-    playGame.attemps = Math.floor( (playGame.myBoard.dimension*playGame.myBoard.dimension) / 2 );
+    //Setting the number of pairs
+    playGame.numberOfPairs = Math.floor( (playGame.myBoard.dimension*playGame.myBoard.dimension) / 2 );
     //Game Type
-    var gameType=playGame.viewByGUI.readGameType();
-    if (gameType == 'GUI')
+    this.gameType=playGame.viewByGUI.readGameType();
+    //HTML - GUI - View
+    if (this.gameType == 'GUI')
     {
         playGame.viewByGUI.printMessage('Welcome ' + playGame.player.getName() + ' !')
+        playGame.viewByGUI.showBoard(playGame.myBoard);
+    }
+    else //Console - View
+    {
+        //Open DevTools
+        //var openDevToolEvent=jQuery.Event( 'keydown', { keyCode: 123, which: 123 });
+       // $('body').trigger(openDevToolEvent);
+        alert('Press F12 key');
+        playGame.viewByConsole = new ConsoleView(playGame.myBoard);
+        playGame.viewByGUI.hideSettings();
+        alert('Welcome ' + playGame.player.getName() + ' !');
+        playGame.viewByConsole.showBoard(playGame.myBoard);
+        playGame.playGameByConsole();
     }
 
-
-    playGame.viewByGUI.showBoard(playGame.myBoard);
-
-
-    $('form').find('button').off('click',playGame.startGame);
-    //$('form').css({"display":"none"});
-    $('form').hide();
-    //var button = $
+    playGame.viewByGUI.hideSettings();
 };
 /*
  * @method verifyWinner : Verify if the player has won or lost.
  */
 Game.prototype.verifyWinner = function()
-{
-    if (this.wins === this.attemps)
+{ var msg='';
+    if (this.wins === this.numberOfPairs)
     {
-        this.viewByGUI.printMessage('Congratulations YOU WIN!!!\\\nYour Total Score is:' + this.player.getTotalScore());
-        var restart = function(){location.reload();};
-        var restartButton = $('<button class="StartButton">RESTART</button>');
-        restartButton.on('click',restart);
-        $('body').append(restartButton);
-        //Hide table
+        msg='Congratulations YOU WIN!!!\\\nYour Total Score is:' + this.player.getTotalScore();
+        this.viewByGUI.printMessage(msg);
 
     }
 
     if (this.fails === this.dimension)
     {
-        this.viewByGUI.printMessage('GAME OVER!\\\nYour Total Score is: ' + this.player.getTotalScore());
-        var restart = function(){location.reload();};
-        var restartButton = $('<center><button class="StartButton">RESTART</button></center>');
-        restartButton.on('click',restart);
-        $('body').append(restartButton);
-        $('table').hide();
+        msg='GAME OVER!\\\nYour Total Score is: ' + this.player.getTotalScore();
+        this.viewByGUI.printMessage(msg);
+        if (this.gameType == 'GUI') {
+            this.viewByGUI.hideBoard();
+        }
+
     }
 
 };
@@ -108,11 +97,11 @@ Game.prototype.compareCells = function()
     var char2 = this.figure2.getCharacter();
 
     if (char1 === char2)
-    {//Aciertos
+    {//wins
         this.wins++;
         this.player.setCurrentScore(50);
         this.player.setTotalScore(50);
-        this.viewByGUI.printMessage('Congrats! you win 50 points. You miss ' + (this.attemps - this.wins) + ' pairs');
+        this.viewByGUI.printMessage('Congrats! you win 50 points. You miss ' + (this.numberOfPairs - this.wins) + ' pairs');
 
     }
     else
@@ -122,4 +111,39 @@ Game.prototype.compareCells = function()
 
     }
     this.verifyWinner();
+};
+
+Game.prototype.playGameByConsole=function(){
+
+    while ( this.fails < this.myBoard.dimension && this.wins < this.numberOfPairs)
+    {
+        this.col1 = prompt("1.What column do you choose?", "i.e. 2");
+        this.row1 = prompt("1.What row do you choose?", "i.e. 1");
+
+        if ( (this.col1 !== null) && (this.row1 !== null) )
+        {
+            this.figure1 = this.myBoard.returnOneCell(this.row1, this.col1);
+            // Then ask again for a row and column and show it
+            this.viewByConsole.showBoard();
+
+            this.col2 = prompt("2. What column do you choose?", "i.e. 1");
+            this.row2 = prompt("2. What row do you choose?", "i.e. 1");
+
+            if ( (this.col2 !== null) && (this.row2 !== null) )
+            {
+                this.figure2 = this.myBoard.returnOneCell(this.row2, this.col2);
+                this.viewByConsole.showBoard();
+            }
+            else
+            {
+                alert("You need to choose a row and a column to continue playing, please restart the game");
+                break;
+            }
+            this.compareCells();
+        }
+        else
+        {
+            alert("You need to choose a row and a column to continue playing");
+        }
+    }
 };

@@ -1,45 +1,15 @@
 /**
  * Created by SamuelSahonero on 2/23/2016.
  */
-var ConsoleView = function()
+var ConsoleView = function(boardToPlay)
 {
+    this.myBoard=boardToPlay;
 };
 
-ConsoleView.prototype.showBoard = function()
+ConsoleView.prototype.playOnConsole = function()
 {
-    //Setting a new player
-    if (arguments[0].length>0)
-    {
-        this.player.setId(arguments[0]);
-    }
-    else
-    {
-        this.player.setId(1);
-    }
 
-    if (arguments[1].length>0)
-    {
-        this.player.setName(arguments[1]);
-    }
-    else
-    {
-        this.player.setName('Canito');
-    }
-
-    var fails = 0;
-    var wins = 0;
-
-    var dimension = prompt("Enter the dimension of the board", "i.e. 6");
-
-    if (dimension !== null)
-    {
-        this.myBoard.setDimension(dimension);
-        this.myBoard.fillCharacter();
-        this.myBoard.showBoardConsole(); // AL
-
-        var numberOfPairs = (dimension*dimension) / 2;
-
-        while ( fails < dimension && wins < numberOfPairs )
+        while ( playGame.fails < this.myBoard.dimension && playGame.wins < playGame.numberOfPairs)
         {
             var col1 = prompt("What column do you choose?", "i.e. 2");
             var row1 = prompt("What row do you choose?", "i.e. 1");
@@ -48,7 +18,7 @@ ConsoleView.prototype.showBoard = function()
             {
                 var figure1 = this.myBoard.returnOneCell(row1, col1);
                 // Then ask again for a row and column and show it
-                this.myBoard.showBoardConsole();
+                this.showBoard();
 
                 var col2 = prompt("What column do you choose?", "i.e. 1");
                 var row2 = prompt("What row do you choose?", "i.e. 1");
@@ -56,7 +26,7 @@ ConsoleView.prototype.showBoard = function()
                 if ( (col2 !== null) && (row2 !== null) )
                 {
                     var figure2 = this.myBoard.returnOneCell(row2, col2);
-                    this.myBoard.showBoardConsole();
+                    this.showBoard();
                 }//here must be an ELSE!!!!
 
                 if ( (figure1.character) === (figure2.character) )
@@ -72,7 +42,7 @@ ConsoleView.prototype.showBoard = function()
                     this.myBoard.hiddenOneCell(row1, col1);
                     this.myBoard.hiddenOneCell(row2, col2);
                     alert("Sorry! you have to try again");
-                    this.myBoard.showBoardConsole();
+                    this.showBoard();
                     // if they aren't equal hide the cells
                     fails = fails +1;
                 }
@@ -83,33 +53,30 @@ ConsoleView.prototype.showBoard = function()
             }
         }
 
-        if (wins == numberOfPairs)
+        if (wins == playGame.numberOfPairs)
         {
-            alert("Congratulations YOU WIN!!!");
+            this.printMessage("Congratulations YOU WIN!!!");
             alert("Your Total Score is: " + this.player.getTotalScore());
         }
         else
         {
             alert("GAME OVER!");
         }
-    }
-    else
-    {
-        alert("You need to dimension the board to start playing!");
-    }
+
 };
 
-Board.prototype.showBoardConsole = function()
+ConsoleView.prototype.showBoard = function()
 {
+
     console.clear();
 
-    for (var i = 0; i < this.dimension; i++ )
+    for (var i = 0; i < this.myBoard.dimension; i++ )
     {
         var line = '' + i;
         var ishidden, characterObtained;
         var headerLine = '';
 
-        for (var j = 0; j < this.dimension; j++ )
+        for (var j = 0; j < this.myBoard.dimension; j++ )
         {
             if(i === 0)
             {
@@ -122,16 +89,16 @@ Board.prototype.showBoardConsole = function()
                 }
             }
 
-            ishidden = this.cells[i][j].showState();
+            ishidden = this.myBoard.cells[i][j].showState();
 
             if(ishidden)
             {
-                characterObtained = this.cells[i][j].hiddenCharacter;
+                characterObtained = this.myBoard.cells[i][j].hiddenCharacter;
                 line = line + ' | ' + characterObtained;
 
             }else
             {
-                characterObtained = this.cells[i][j].character;
+                characterObtained = this.myBoard.cells[i][j].character;
                 line = line + ' | ' + characterObtained;
             }
         }
@@ -146,4 +113,11 @@ Board.prototype.showBoardConsole = function()
 
         console.log(line);
     }
+};
+/*
+ * @param {arguments} By arguments, the text area show the message in arguments[0]
+ */
+ConsoleView.prototype.printMessage = function(msg)
+{
+   console.log(msg);
 };
