@@ -2,7 +2,7 @@
  * Created by alejandraneolopan on 2/4/2016.
  */
 /*
-* Author:  Ana & Samuel
+* Author:  Alejandra & Ana & Samuel
 *  @class Player: Player Model
 *  id {string} property that indicates Player code
 *  name {string} property that indicates the Player Name
@@ -23,16 +23,25 @@ var Player = function(id, name, age)
 };
 
 
+/*
+ * @return {int} Returns the Player id
+ */
 
 Player.prototype.getId = function()
 {
     return this.id;
 };
+/*
+ * @return {string} Returns the Player name
+ */
 
 Player.prototype.getName = function()
 {
     return this.name;
 };
+/*
+ * @return {int} Returns the Player age
+ */
 
 Player.prototype.getAge = function()
 {
@@ -65,6 +74,7 @@ Player.prototype.setAge = function(age)
 /*
  * @param {int} score This param set the Current Score
  */
+
 Player.prototype.setCurrentScore = function(score)
 {
     this.currentScore = score ;
@@ -72,15 +82,22 @@ Player.prototype.setCurrentScore = function(score)
 /*
  * @param {int} score This param add the total score.
  */
+
 Player.prototype.setTotalScore = function(score)
 {
     this.totalScore = this.totalScore + score;
 };
+/*
+ * @return {int} Returns the total score
+ */
 
 Player.prototype.getTotalScore = function()
 {
     return this.totalScore;
 };
+/*
+ * @return {char} Returns the Nickname
+ */
 
 Player.prototype.getNickName = function()
 {
@@ -89,6 +106,7 @@ Player.prototype.getNickName = function()
 /*
  * @param {string} nick This param set the Nick Name
  */
+
 Player.prototype.setNickName = function(nick)
 {
     this.nickName = nick;
